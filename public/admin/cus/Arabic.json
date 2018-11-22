@@ -1,0 +1,19 @@
+
+
+{
+  "sProcessing":   "ÌÇÑם ÇבÊÍדםב...",
+  "sLengthMenu":   "ÃÙוÑ דץÏÎבÇÊ _MENU_",
+  "sZeroRecords":  "בד םץÚËÑ Úבל ÃםÉ ÓÌבÇÊ",
+  "sInfo":         "ÅÙוÇÑ _START_ Åבל _END_ דה ÃÕב _TOTAL_ דץÏÎב",
+  "sInfoEmpty":    "םÚÑÖ 0 Åבל 0 דה ÃÕב 0 ÓÌבר",
+  "sInfoFiltered": "(דהÊÞÇÉ דה דÌדזÚ _MAX_ דץÏÎב)",
+  "sInfoPostFix":  "",
+  "sSearch":       "ÇÈÍË:",
+  "sUrl":          "",
+  "oPaginate": {
+    "sFirst":    "ÇבÃזב",
+    "sPrevious": "ÇבÓÇÈÞ",
+    "sNext":     "ÇבÊÇבם",
+    "sLast":     "ÇבÃÎםÑ"
+  }
+}
