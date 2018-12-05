@@ -60,8 +60,8 @@
            {{-- <input id="name" type="name" class="form-control{{ $errors->has('bu_rent') ? ' is-invalid' : '' }}" name="bu_rent" value="{{ old('bu_rent') }}" required> --}}
 
             <select  id="name" name="bu_rent"  class="form-control{{ $errors->has('bu_rent') ? ' is-invalid' : '' }}" name="bu_rent" value="{{ old('bu_rent') }}" required>
-                <option value="ownership">Ownership</option>
-                <option value="rent">Rent</option>
+                <option value="1">Ownership</option>
+                <option value="0">Rent</option>
             </select>
 
             @if ($errors->has('bu_rent'))
@@ -95,10 +95,11 @@
 
             {{--    {!! Form::select("bu_type" , bu_type() , null ,['class' => 'form-control']) !!}    --}}
 
-            <select  id="name" name="bu_type"  class="form-control{{ $errors->has('bu_type') ? ' is-invalid' : '' }}" name="bu_type" value="{{ old('bu_type') }}" required>
-                <option value="flat">Flat</option>
-                <option value="chalet">Chalet</option>
-                <option value="villa">Villa</option>
+            <select  id="name" class="form-control{{ $errors->has('bu_type') ? ' is-invalid' : '' }}" name="bu_type" value="{{ old('bu_type') }}" required>
+                <option value="1">Flat</option>
+                <option value="2">Villa</option>
+                <option value="3">Chalet</option>
+
             </select>
 
             @if ($errors->has('bu_type'))
@@ -116,9 +117,9 @@
 
             {{--    {!! Form::select("bu_status" , bu_status() , null ,['class' => 'form-control']) !!}    --}}
 
-            <select  id="name" name="bu_type"  class="form-control{{ $errors->has('bu_status') ? ' is-invalid' : '' }}" name="bu_status" value="{{ old('bu_status') }}" required>
-                <option value="enabled">Enabled</option>
-                <option value="disabled">Disabled</option>
+            <select  id="name" class="form-control{{ $errors->has('bu_status') ? ' is-invalid' : '' }}" name="bu_status" value="{{ old('bu_status') }}" required>
+                <option value="1">Enabled</option>
+                <option value="0">Disabled</option>
             </select>
 
             @if ($errors->has('bu_status'))
@@ -134,7 +135,7 @@
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Tag Words :') }}</label>
 
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control{{ $errors->has('bu_square') ? ' is-invalid' : '' }}" name="bu_meta" value="{{ old('bu_meta') }}" required>
+            <input id="name" type="text" class="form-control{{ $errors->has('bu_meta') ? ' is-invalid' : '' }}" name="bu_meta" value="{{ old('bu_meta') }}" required>
 
             @if ($errors->has('bu_meta'))
                 <span class="invalid-feedback" role="alert">
@@ -208,10 +209,10 @@
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Long description of the building :') }}</label>
 
         <div class="col-md-6">
-             <textarea id="name" type="text" class="form-control{{ $errors->has('bu_long_des') ? ' is-invalid' : '' }}" name="bbu_long_des" value="{{ old('bu_long_des') }}" required >
+             <textarea id="name" type="text" class="form-control{{ $errors->has('bu_long_des') ? ' is-invalid' : '' }}" name="bu_long_des" value="{{ old('bu_long_des') }}" required >
 
             </textarea>
-            @if ($errors->has('bu_latitude'))
+            @if ($errors->has('bu_long_des'))
                 <span class="invalid-feedback" role="alert">
                      <strong>{{ $errors->first('bu_long_des') }}</strong>
                 </span>

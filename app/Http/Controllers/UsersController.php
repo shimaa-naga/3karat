@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Bu;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AddUserRequestAdmin;
@@ -104,7 +105,8 @@ class UsersController extends Controller
         $user->save();
         //Session::flush('success','this user updated successfully');
        // return redirect()->route('users.show',$user->id);
-        return redirect('/adminpanel/users');
+       // return redirect('/adminpanel/users');
+        return redirect('/adminpanel/users')->withFlashMessage(' user updated successfully');
     }
 
     public function updatePassword(Request $request){
@@ -126,6 +128,7 @@ public function destroy($id){
     if($id != 1){
 
         $user =User::find($id)->delete();
+        Bu::where('user_id' , $id)->delete();   // delete Buldings that belongs this user that want to delete
         return redirect('/adminpanel/users')->withFlashMessage('deleted user successfully');
     }
 

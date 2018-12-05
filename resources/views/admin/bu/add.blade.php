@@ -62,7 +62,7 @@
                         --}}
 
 
-                        {!! Form::open(['url' => '/adminpanel/bu' , 'method' => 'post' ]) !!}
+                        {!! Form::open(['url' => '/adminpanel/bu/create' , 'method' => 'post' ]) !!}
                              @include('admin.bu.form')
 
                         {!! Form::close()  !!}

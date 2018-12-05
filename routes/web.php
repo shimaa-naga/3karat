@@ -19,8 +19,6 @@ Route::group(['middleware' => ['web','admin']], function(){
     Route::get('/adminpanel/users/{id}/delete','UsersController@destroy');
 
 
-
-
     /*
     Route::get('/adminpanel/users/create','UsersController@create');
     Route::post('/adminpanel/users/create','UsersController@store');
@@ -34,7 +32,13 @@ Route::group(['middleware' => ['web','admin']], function(){
 
 
     //bu
-    Route::resource('/adminpanel/bu','BuController');
+    //Route::resource('/adminpanel/bu','BuController');
+    Route::get('/adminpanel/bu','BuController@index');
+    Route::get('/adminpanel/bu/create','BuController@create');
+    Route::post('/adminpanel/bu/create','BuController@store');
+    Route::get('/adminpanel/bu/{id}/edit','BuController@edit');
+    Route::post('/adminpanel/bu/{id}','BuController@update');
+    Route::get('/adminpanel/bu/{id}/delete','BuController@destroy');
 
 });
 
@@ -58,6 +62,12 @@ Route::group(['middleware' => 'web'], function(){
     Route::get('/', function () {
         return view('welcome');
     });
+
+    Route::get('/showAllBuildings','BuController@showAllEnableBuildings');
+    Route::get('/ForRent','BuController@ForRent');
+    Route::get('/Buy ','BuController@ForBuy');
+
+    Route::get('/type/{type}','BuController@showByType');
 
     Route::get('/home', 'HomeController@index')->name('home');
 });

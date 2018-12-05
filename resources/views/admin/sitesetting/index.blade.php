@@ -50,7 +50,7 @@
                     <div class="box-body">
 
 
-                        {{test()}}
+                       {{--   {{test()}} --}}
 
 
                         <form action="{{url('/adminpanel/sitesetting')}}" method="post">

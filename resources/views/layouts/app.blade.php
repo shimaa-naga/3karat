@@ -59,6 +59,7 @@
                 <div class="menu"> <a class="toggleMenu" href="#"><img src="{{asset('website/images/nav_icon.png')}}" alt="" /> </a>
                     <ul class="nav" id="nav">
                         <li class="current"><a href="{{url('/home')}}">Home</a></li>
+                        <li class=""><a href="{{url('/showAllBuildings')}}">All Buildings</a></li>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="contact.html">Contact Us</a></li>

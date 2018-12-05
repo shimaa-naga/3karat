@@ -32,6 +32,10 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
 
+    <link rel="stylesheet" href="{{asset('cus/sweetalert2.min.css')}}">
+
+    {!! Html::style('cus/sweetalert2.min.css') !!}
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -364,8 +368,14 @@
 
 
 <div class="content-wrapper">
+
+
+    {{--  @include('admin.layouts.message')  --}}
+
+
  @yield('content')
 </div>
+
 
 
 
@@ -615,6 +625,31 @@
 <script src="{{asset('admin/dist/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('admin/dist/js/demo.js')}}"></script>
+
+
+<script src="{{asset('cus/sweetalert2.all.min.js')}}"></script>
+<script src="{{asset('cus/sweetalert2.min.js')}}"></script>
+
+
+{!! Html::script('cus/sweetalert.js') !!}}
+{!! Html::script('cus/sweetalert.min.js') !!}}
+
+{!! Html::script('cus/sweetalert2.all.min.js') !!}}
+{!! Html::script('cus/sweetalert2.min.js') !!}}
+
+@include('admin.layouts.f_message')
+
+<script>
+
+    $(function(){
+
+        setTimeout(function(){
+            $("#mes").hide('blind', {}, 500)
+        }, 5000);
+    });
+
+</script>
+
 
 
 @yield('footer')

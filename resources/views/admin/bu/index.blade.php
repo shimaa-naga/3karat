@@ -65,29 +65,34 @@
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 121px;">Name Of Building</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 106px;">Price</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 106px;">Type</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 80px;">Created Time</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Updated Time</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 90px;">Created Time</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 90px;">Updated Time</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Status</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Is Admin</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Controll</th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
 
-                                            @foreach($user as $userinfo)
+                                            
+                                            @foreach($bus as $buinfo)
                                                 <tr role="row" class="odd">
-                                                    <td>{{$userinfo->id}}</td>
-                                                    <td class="sorting_1">{{$userinfo->name}}</td>
-                                                    <td> {{$userinfo->email}} </td>
-                                                    <td>{{$userinfo->created_at}}</td>
-                                                    <td>{{$userinfo->updated_at}}</td>
-                                                    <td>{{$userinfo->admin == 1 ? 'manager' : 'user'}}</td>
+                                                    <td>{{$buinfo->id}}</td>
+                                                    <td class="sorting_1">{{$buinfo->bu_name}}</td>
+                                                    <td> {{$buinfo->bu_price}} </td>
+                                                    <td> {{$buinfo->bu_type}} </td>
+                                                    <td> {{$buinfo->created_at}}</td>
+                                                    <td> {{$buinfo->updated_at}}</td>
+                                                    <td> {{$buinfo->bu_status}}</td>
+                                                    <td> {{$buinfo->user_id == 1 ? 'manager' : 'user'}}</td>
                                                     <td>
-                                                        <a href="{{url('/adminpanel/users/'.$userinfo->id.'/edit')}}"> Edit</a>
-                                                        <a href="{{url('/adminpanel/users/'.$userinfo->id.'/delete')}}"> Delete</a>
+                                                        <a href="{{url('/adminpanel/bu/'.$buinfo->id.'/edit')}}"> Edit </a>
+                                                        <a href="{{url('/adminpanel/bu/'.$buinfo->id.'/delete')}}"> Delete</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
+                                           
 
 
 
@@ -101,6 +106,7 @@
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 80px;">Created Time</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Updated Time</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Status</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Is Admin</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Controll</th>
                                             </tr>
 
