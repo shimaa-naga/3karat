@@ -68,6 +68,7 @@ Route::group(['middleware' => 'web'], function(){
     Route::get('/Buy ','BuController@ForBuy');
 
     Route::get('/type/{type}','BuController@showByType');
+    Route::post('/search','BuController@search');
 
     Route::get('/home', 'HomeController@index')->name('home');
 });

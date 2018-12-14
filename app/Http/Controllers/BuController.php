@@ -6,6 +6,7 @@ use App\Bu;
 use App\Http\Requests\BuRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 use Illuminate\Support\Facades\Validator;
@@ -134,28 +135,28 @@ class BuController extends Controller
 
     public function showAllEnableBuildings()
     {
-        $buAll = Bu::where('bu_status', 1)->orderby('id', 'desc')->paginate(9);
+        $buAll = Bu::where('bu_status', 1)->orderby('id', 'desc')->paginate(15);
         return view('website.bu.all' , compact('buAll'));
     }
 
 
     public function ForRent()
     {
-        $buAll = Bu::where('bu_status', 1)->where('bu_rent' , 0)->orderby('id', 'desc')->paginate(9);
+        $buAll = Bu::where('bu_status', 1)->where('bu_rent' , 0)->orderby('id', 'desc')->paginate(15);
         return view('website.bu.all' , compact('buAll'));
     }
 
     public function ForBuy ()
     {
-        $buAll = Bu::where('bu_status', 1)->where('bu_rent' , 1)->orderby('id', 'desc')->paginate(9);
+        $buAll = Bu::where('bu_status', 1)->where('bu_rent' , 1)->orderby('id', 'desc')->paginate(15);
         return view('website.bu.all' , compact('buAll'));
     }
 
     public function showByType($type)
     {
-        if(in_array($type , [1,2,3])){
+        if(in_array($type , [0,1,2])){
 
-            $buAll = Bu::where('bu_status', 1)->where('bu_type' , $type)->orderby('id', 'desc')->paginate(9);
+            $buAll = Bu::where('bu_status', 1)->where('bu_type' , $type)->orderby('id', 'desc')->paginate(15);
             return view('website.bu.all' , compact('buAll'));
         }
         else{
@@ -165,6 +166,38 @@ class BuController extends Controller
     }
 
 
+    public function search(Request $request)
+    {
+/*
+       $requestAll = array_except($request->toArray() , ['submit', '_token']);
+
+        $query =DB::table('bu')->select('*');
+
+        foreach($requestAll as $key => $req){
+            if($req != ''){
+
+                $query->where($key , $req);
+            }
+        }
+
+        $buAll = $query->paginate(15);
+
+
+        return view('website.bu.all' , compact('buAll'));
+       */
+        $buAll = Bu::where('bu_status', 1)
+            ->where('bu_price' , $request->bu_price)
+            ->orWhere('bu_place' , $request->bu_place)
+            ->orWhere('rooms' , $request->rooms)
+            ->orWhere('bu_rent' , $request->bu_rent)
+            ->orWhere('bu_type' , $request->bu_type)
+            ->orWhere('bu_square' , $request->bu_square)
+            ->orderby('id', 'desc')
+            ->paginate(15);
+
+        return view('website.bu.all' , compact('buAll'));
+
+    }
 
 
     

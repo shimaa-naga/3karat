@@ -14,6 +14,7 @@
 
 @section('header')
 
+{!! Html::style('cus/css/select2.min.css') !!}
 
 
 @endsection
@@ -165,9 +166,9 @@
                                         {{-- <option value="{{ $bu->bu_type}}" selected="selected" >{{ $bu->bu_type}}</option> --}}
 
 
-                                    <option value="1" name="bu_type" >Flat</option>
-                                    <option value="2" name="bu_type" >Villa</option>
-                                    <option value="3" name="bu_type" >Chalet</option>
+                                    <option value="0" name="bu_type" >Flat</option>
+                                    <option value="1" name="bu_type" >Villa</option>
+                                    <option value="2" name="bu_type" >Chalet</option>
 
                                 </select>
 
@@ -206,7 +207,30 @@
                         </div>
 
 
-                        <div class="form-group row">
+
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Place :') }}</label>
+
+                                <div class="col-md-6">
+                                    {{--             <select  id="name" name="bu_place"  class="form-control{{ $errors->has('bu_place') ? ' is-invalid' : '' }}" name="bu_place" value="{{ old('bu_place') }}" required>
+                         --}}
+
+                                    {!! Form::select("bu_place" ,bu_place() ,null,['class' => "form-control {{ $errors->has('bu_place') ? ' is-invalid' : '' }}",'value' => "{{ old('bu_place') }}" ]) !!}
+
+
+
+                                    @if ($errors->has('bu_place'))
+                                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('bu_place') }}</strong>
+                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Tag Words :') }}</label>
 
                             <div class="col-md-6">
@@ -425,7 +449,28 @@
 @section('footer')
 
 
+    {!! Html::script('cus/js/select2.min.js') !!}
 
 
+
+    <script type="text/javascript" >
+
+         function formatState (state) {
+            if (!state.id) {
+                return state.text;
+            }
+            var baseUrl = "/user/pages/images/flags";
+            var $state = $(
+                    '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+            );
+            return $state;
+        };
+
+        $(".select2").select2({
+            templateSelection: formatState
+        });
+
+
+    </script>
 
 @endsection

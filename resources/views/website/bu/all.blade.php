@@ -29,7 +29,7 @@
     <!-- Font Awesome -->
 
 --}}
-    
+
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
@@ -37,15 +37,63 @@
 
     <div class="container">
         <div class="row">
+
+
+
+
             <div class="col-12 col-sm-3">
+
+
+
+
+
                 <div class="card bg-light mb-3">
-                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Select Building</div>
+                    <div class="card-header bg-primary text-white text-uppercase">Advanced Search</div>
+                    <div class="card-body">
+
+                        {!! Form::open(['url' => 'search' , 'method' => 'post']) !!}
+                        <li class="list-group-item">
+                            {!! Form::text("bu_price" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price']) !!}
+                        </li>
+                        <li class="list-group-item">
+                            {!! Form::select("bu_place" ,bu_place(), null ,['class' => 'form-control' , 'placeholder' => 'Building Place']) !!}
+                        </li>
+                        <li class="list-group-item">
+                            {!! Form::select("rooms" ,roomnumber() , null ,['class' => 'form-control' , 'placeholder' => 'No.Rooms']) !!}
+                        </li>
+                        <li class="list-group-item">
+                            {!! Form::select("bu_type" ,bu_type() , null ,['class' => 'form-control' , 'placeholder' => 'Type of Building']) !!}
+                        </li>
+                        <li class="list-group-item">
+                            {!! Form::select("bu_rent" ,bu_rent() , null ,['class' => 'form-control' , 'placeholder' => 'Type of Process']) !!}
+                        </li>
+                        <li class="list-group-item">
+                            {!! Form::text("bu_square" , null ,['class' => 'form-control' , 'placeholder' => 'Square']) !!}
+                        </li>
+                        <li class="list-group-item" >
+                            {{-- {!! Form::submit("Search" , null ,['class' => 'banner_btn']) !!} --}}
+                                    {{-- <input type="submit" value="Search" class="banner_btn"> --}}
+
+                               <div style="padding: -2px 0px 0px 0px; margin-top: -25px;">
+                                   <button type="submit" class="submit" >
+
+                                       {{ __('Search') }}
+                                   </button>
+
+                               </div>
+                        </li>
+                        {!! Form::close() !!}
+
+                    </div>
+                </div>
 
 
 
-                    <ul class="list-group category_block">
+            <div class="card bg-light mb-3">
+              <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Select Building</div>
+                 <ul class="list-group category_block">
 
-                        {{--
+  {{--
                         <!-- search form -->
                         <form action="#" method="get" class="sidebar-form" style="display:inline-block; padding: 5px 40px 5px 3px; ">
                             <div class="input-group">
@@ -59,20 +107,15 @@
                         <!-- /.search form -->
 
                         --}}
-                        <li class="list-group-item">
-                            {!! Form::text("price_form" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price']) !!}
-                        </li>
-                        <li class="list-group-item">
-                            {!! Form::select("rooms" ,['3','4','5','6','7','8','9'] , null ,['class' => 'form-control' , 'placeholder' => 'No.Rooms']) !!}
-                        </li>
+
 
 
                         <li class="list-group-item"><a href="{{url('/showAllBuildings')}}"> All Buildings </a></li>
                         <li class="list-group-item"><a href="{{url('/ForRent')}}">Rent</a></li>
                         <li class="list-group-item"><a href="{{url('/Buy')}}"> Buy </a></li>
-                        <li class="list-group-item"><a href="{{url('/type/1')}}"> Flat </a></li>
-                        <li class="list-group-item"><a href="{{url('/type/2')}}"> Villa </a></li>
-                        <li class="list-group-item"><a href="{{url('/type/3')}}"> Chalet </a></li>
+                        <li class="list-group-item"><a href="{{url('/type/0')}}"> Flat </a></li>
+                        <li class="list-group-item"><a href="{{url('/type/1')}}"> Villa </a></li>
+                        <li class="list-group-item"><a href="{{url('/type/2')}}"> Chalet </a></li>
 
 
                     </ul>
@@ -93,6 +136,7 @@
                     @include('website.bu.sharefile')
 
                     <div class="text-center">
+
                         {{$buAll->appends(Request::except('page'))->render()}}
 
                     </div>

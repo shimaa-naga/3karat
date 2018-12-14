@@ -96,9 +96,9 @@
             {{--    {!! Form::select("bu_type" , bu_type() , null ,['class' => 'form-control']) !!}    --}}
 
             <select  id="name" class="form-control{{ $errors->has('bu_type') ? ' is-invalid' : '' }}" name="bu_type" value="{{ old('bu_type') }}" required>
-                <option value="1">Flat</option>
-                <option value="2">Villa</option>
-                <option value="3">Chalet</option>
+                <option value="0">Flat</option>
+                <option value="1">Villa</option>
+                <option value="2">Chalet</option>
 
             </select>
 
@@ -126,6 +126,28 @@
                 <span class="invalid-feedback" role="alert">
                      <strong>{{ $errors->first('bu_status') }}</strong>
                 </span>
+            @endif
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group row">
+        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Place :') }}</label>
+
+        <div class="col-md-6">
+            {{--             <select  id="name" name="bu_place"  class="form-control{{ $errors->has('bu_place') ? ' is-invalid' : '' }}" name="bu_place" value="{{ old('bu_place') }}" required>
+ --}}
+
+                {!! Form::select("bu_place" ,bu_place() ,null,['class' => "form-control js-example-basic-single {{ $errors->has('bu_place') ? ' is-invalid' : '' }}",'value' => "{{ old('bu_place') }}" ]) !!}
+
+
+
+            @if ($errors->has('bu_place'))
+                <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('bu_place') }}</strong>
+                    </span>
             @endif
         </div>
     </div>
