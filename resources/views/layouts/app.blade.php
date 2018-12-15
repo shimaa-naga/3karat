@@ -16,6 +16,7 @@
 
 
 
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -43,6 +44,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    
+    {!! Html::style('cus/css/select2.min.css') !!}
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
 </head>
 <body >
 
@@ -54,7 +62,7 @@
 <div id="app" >
 
 
-        <div class="header">
+        <div class="header" style="padding-bottom: 0px ;" >
             <div class="container"> <a class="navbar-brand" href="{{ url('/') }}"><i class="fa fa-paper-plane"></i> 3karat</a>
                 <div class="menu"> <a class="toggleMenu" href="#"><img src="{{asset('website/images/nav_icon.png')}}" alt="" /> </a>
                     <ul class="nav" id="nav">
@@ -131,6 +139,34 @@
 <script type="text/javascript" src="{{asset('website/js/responsive-nav.js')}}"></script>
 <script src="{{asset('website/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('website/js/jquery.flexslider.js')}}"></script>
+
+
+{!! Html::script('cus/js/select2.min.js') !!}
+
+
+
+<script type="text/javascript" >
+
+    {{--    function formatState (state) {
+        if (!state.id) {
+            return state.text;
+        }
+        var baseUrl = "/user/pages/images/flags";
+        var $state = $(
+                '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+        );
+        return $state;
+    };
+
+    $(".select2").select2({
+        templateSelection: formatState
+    }); --}}
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+
+</script>
 
 </body>
 </html>

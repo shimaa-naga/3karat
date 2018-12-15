@@ -168,23 +168,52 @@ class BuController extends Controller
 
     public function search(Request $request)
     {
-/*
+
+       // $min = $request->bu_price_from == '' ? 50000 : $request->bu_price_from ;
+       // $max = $request->bu_price_to == '' ? 24000000 : $request->bu_price_to;
+
+
        $requestAll = array_except($request->toArray() , ['submit', '_token']);
 
         $query =DB::table('bu')->select('*');
+        $array = [] ;
+        $count = count($requestAll);
+        $i = 0 ;
 
         foreach($requestAll as $key => $req){
+            $i++ ;
             if($req != ''){
 
-                $query->where($key , $req);
+                if($key == 'bu_price_from' && $request->bu_price_to == '') {
+
+                    $query->where('bu_price' ,'>=', $req);
+                }
+                elseif($key == 'bu_price_to' && $request->bu_price_from == ''){
+
+                    $query->where('bu_price' ,'<=', $req);
+                }
+                else{
+
+                    if($key != 'bu_price_from' && $key != 'bu_price_to'){
+
+                        $query->where($key , $req);
+                    }
+                }
+
+                $array[$key] = $req ;
+
+            }elseif($count == $i && $request->bu_price_to != '' && $request->bu_price_from != ''){
+
+                $query->whereBetween('bu_price',[$request->bu_price_from , $request->bu_price_to]);
+                $array[$key] = $req ;
             }
         }
 
         $buAll = $query->paginate(15);
 
+        return view('website.bu.all' , compact('buAll' , 'array'));
 
-        return view('website.bu.all' , compact('buAll'));
-       */
+        /*
         $buAll = Bu::where('bu_status', 1)
             ->where('bu_price' , $request->bu_price)
             ->orWhere('bu_place' , $request->bu_place)
@@ -195,7 +224,9 @@ class BuController extends Controller
             ->orderby('id', 'desc')
             ->paginate(15);
 
+
         return view('website.bu.all' , compact('buAll'));
+        */
 
     }
 

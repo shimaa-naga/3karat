@@ -56,6 +56,22 @@
     }
 
 
+    function searchNameField(){
+
+        return [
+
+            'bu_price' => 'Building Price' ,
+            'bu_place' => 'Place' ,
+            'rooms' => 'NO.Rooms' ,
+            'bu_rent' => 'Type Of Process' ,
+            'bu_type' => 'Type of Buildind' ,
+            'bu_square' => 'Square',
+            'bu_price_from' => 'Building Price From' ,
+            'bu_price_to' => 'Building Price To'
+        ];
+    }
+
+
     function bu_place(){
         return[
             

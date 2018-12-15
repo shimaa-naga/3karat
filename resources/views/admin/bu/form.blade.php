@@ -140,7 +140,7 @@
             {{--             <select  id="name" name="bu_place"  class="form-control{{ $errors->has('bu_place') ? ' is-invalid' : '' }}" name="bu_place" value="{{ old('bu_place') }}" required>
  --}}
 
-                {!! Form::select("bu_place" ,bu_place() ,null,['class' => "form-control js-example-basic-single {{ $errors->has('bu_place') ? ' is-invalid' : '' }}",'value' => "{{ old('bu_place') }}" ]) !!}
+                {!! Form::select("bu_place" ,bu_place() ,null,['class' => "form-control select2 {{ $errors->has('bu_place') ? ' is-invalid' : '' }}",'value' => "{{ old('bu_place') }}" ]) !!}
 
 
 

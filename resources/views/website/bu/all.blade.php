@@ -36,15 +36,51 @@
 
 
     <div class="container">
+
+
+
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{url('/')}}" >Home</a></li>
+
+                @if(isset($array))
+
+                    @if(!empty($array))
+
+                        @foreach($array as $key => $value)
+
+                            <li class="breadcrumb-item"><a href="{{url('/')}}" > {{searchNameField()[$key]}} ->
+
+                                    @if($key == 'bu_type')
+
+                                        {{bu_type()[$value]}}
+                                    @elseif($key == 'bu_rent')
+
+                                        {{bu_rent()[$value]}}
+                                    @elseif($key == 'bu_place')
+
+                                        {{bu_place()[$value]}}
+
+                                    @else
+                                    {{$value}} </a></li>
+
+                                    @endif
+                        @endforeach
+
+                    @endif
+                @endif
+
+            </ol>
+        </nav>
+
+
+
+
         <div class="row">
 
 
-
-
             <div class="col-12 col-sm-3">
-
-
-
 
 
                 <div class="card bg-light mb-3">
@@ -53,10 +89,13 @@
 
                         {!! Form::open(['url' => 'search' , 'method' => 'post']) !!}
                         <li class="list-group-item">
-                            {!! Form::text("bu_price" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price']) !!}
+                            {!! Form::text("bu_price_from" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price From']) !!}
                         </li>
                         <li class="list-group-item">
-                            {!! Form::select("bu_place" ,bu_place(), null ,['class' => 'form-control' , 'placeholder' => 'Building Place']) !!}
+                            {!! Form::text("bu_price_to" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price To']) !!}
+                        </li>
+                        <li class="list-group-item">
+                            {!! Form::select("bu_place" ,bu_place(), null ,['class' => 'form-control select2' , 'placeholder' => 'Building Place']) !!}
                         </li>
                         <li class="list-group-item">
                             {!! Form::select("rooms" ,roomnumber() , null ,['class' => 'form-control' , 'placeholder' => 'No.Rooms']) !!}
