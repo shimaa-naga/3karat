@@ -10,6 +10,9 @@
 
     {!! Html::style('cus/buall.css') !!}
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
 @endsection
 
 @section('content')
@@ -50,7 +53,7 @@
 
                         @foreach($array as $key => $value)
 
-                            <li class="breadcrumb-item"><a href="{{url('/')}}" > {{searchNameField()[$key]}} ->
+                            <li class="breadcrumb-item"><a href="{{url('/search?'.$key.'='.$value)}}" > {{searchNameField()[$key]}} ->
 
                                     @if($key == 'bu_type')
 
@@ -87,7 +90,7 @@
                     <div class="card-header bg-primary text-white text-uppercase">Advanced Search</div>
                     <div class="card-body">
 
-                        {!! Form::open(['url' => 'search' , 'method' => 'post']) !!}
+                        {!! Form::open(['url' => 'search' , 'method' => 'get']) !!}
                         <li class="list-group-item">
                             {!! Form::text("bu_price_from" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price From']) !!}
                         </li>
@@ -95,7 +98,7 @@
                             {!! Form::text("bu_price_to" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price To']) !!}
                         </li>
                         <li class="list-group-item">
-                            {!! Form::select("bu_place" ,bu_place(), null ,['class' => 'form-control select2' , 'placeholder' => 'Building Place']) !!}
+                            {!! Form::select("bu_place" ,bu_place(), null ,['class' => 'form-control js-example-templating' , 'placeholder' => 'Building Place']) !!}
                         </li>
                         <li class="list-group-item">
                             {!! Form::select("rooms" ,roomnumber() , null ,['class' => 'form-control' , 'placeholder' => 'No.Rooms']) !!}
@@ -213,3 +216,21 @@
 
 
 @endsection
+
+@section('footer')
+    function formatState (state) {
+    if (!state.id) {
+    return state.text;
+    }
+    var baseUrl = "/user/pages/images/flags";
+    var $state = $(
+    '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+    );
+    return $state;
+    };
+
+    $(".js-example-templating").select2({
+    templateSelection: formatState
+    });
+
+    @endsection

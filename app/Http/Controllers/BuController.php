@@ -173,7 +173,7 @@ class BuController extends Controller
        // $max = $request->bu_price_to == '' ? 24000000 : $request->bu_price_to;
 
 
-       $requestAll = array_except($request->toArray() , ['submit', '_token']);
+       $requestAll = array_except($request->toArray() , ['submit', '_token' , 'page']);
 
         $query =DB::table('bu')->select('*');
         $array = [] ;
