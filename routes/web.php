@@ -69,6 +69,7 @@ Route::group(['middleware' => 'web'], function(){
 
     Route::get('/type/{type}','BuController@showByType');
     Route::get('/search','BuController@search');
+    Route::get('/singleBuilding/{id}','BuController@showSingleBuilding');
 
     Route::get('/home', 'HomeController@index')->name('home');
 });

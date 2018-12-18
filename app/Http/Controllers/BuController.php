@@ -63,6 +63,7 @@ class BuController extends Controller
 
 
 
+   /*
     public function update($id , BuRequest $request)
     {
         $buUpdate = Bu::find($id);
@@ -73,8 +74,9 @@ class BuController extends Controller
         //dd($buUpdate);
         return Redirect::back()->withFlashMessage('Updated Building Successfully');
     }
+    */
 
-/*
+
     public function update($id , Request $request)
     {
         $buUpdate = Bu::find($id);
@@ -117,13 +119,13 @@ class BuController extends Controller
 
         $buUpdate->save();
 
-        return redirect('/adminpanel/bu');
+       // return redirect('/adminpanel/bu');
 
         //$buUpdate->fill($request->all())->save();
         //dd($buUpdate);
-        //return Redirect::back()->withFlashMessage('Updated Building Successfully');
+        return Redirect::back()->withFlashMessage('Updated Building Successfully');
     }
-    */
+
 
     public function destroy($id)
     {
@@ -228,6 +230,14 @@ class BuController extends Controller
         return view('website.bu.all' , compact('buAll'));
         */
 
+    }
+
+
+    public function showSingleBuilding($id)
+    {
+       // dd($id);
+       $buInfo = Bu::findOrFail($id);
+        return view('website.bu.singleBu' , compact('buInfo'));
     }
 
 

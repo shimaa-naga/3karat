@@ -38,7 +38,7 @@
                         <p class="pricetext" {{-- class="btn btn-danger btn-block"--}} >{{$bu->bu_price}}</p>
                     </div>
                     <div class="col">
-                        <a href="#" class="btn btn-success btn-block">{{-- Add to cart --}} details <span class="fa phpdebugbar-fa-arrow-circle-right" style="color: #FFFFFF"></span></a>
+                        <a href="{{url('/singleBuilding/'.$bu->id)}}" class="btn btn-success btn-block">{{-- Add to cart --}} details <span class="fa phpdebugbar-fa-arrow-circle-right" style="color: #FFFFFF"></span></a>
                     </div>
                 </div>
             </div>
