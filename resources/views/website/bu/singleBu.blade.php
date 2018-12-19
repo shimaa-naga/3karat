@@ -8,6 +8,14 @@
 @endsection
 
 @section('header')
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
 
     {!! Html::style('cus/buall.css') !!}
 
@@ -127,10 +135,31 @@
                       <br>
 
                     <p>
-                        {!! nl2br($buInfo->bu_long_des) !!}}
+                        {!! nl2br($buInfo->bu_long_des) !!}
                     </p>
 
 
+                    <div id="map"  style="width:100%;height:400px;"></div>
+                    <script>
+                        function initMap() {
+
+                             var uluru = {lat: {{$buInfo->bu_latitude}}, lng: {{$buInfo->bu_longitude}}};
+                            {{-- var uluru = {lat: 30.042238, lng: 31.241463}; --}}
+                            var map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 4,
+                                center: uluru
+                            });
+                            var marker = new google.maps.Marker({
+                                position: uluru,
+                                map: map
+                            });
+                        }
+                    </script>
+                    <script async defer
+                            src=
+                            "https://maps.googleapis.com/maps/api/js?key=
+                                    AIzaSyB2bXKNDezDf6YNVc-SauobynNHPo4RJb8&callback=initMap">
+                    </script>
 
                 </div>
             </div>
@@ -141,22 +170,27 @@
 
 
 
+
 @endsection
 
 @section('footer')
-    function formatState (state) {
-    if (!state.id) {
-    return state.text;
-    }
-    var baseUrl = "/user/pages/images/flags";
-    var $state = $(
-    '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
-    );
-    return $state;
-    };
 
-    $(".js-example-templating").select2({
-    templateSelection: formatState
-    });
+
+    <script>
+        function formatState (state) {
+            if (!state.id) {
+                return state.text;
+            }
+            var baseUrl = "/user/pages/images/flags";
+            var $state = $(
+                    '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+            );
+            return $state;
+        };
+
+        $(".js-example-templating").select2({
+            templateSelection: formatState
+        });
+    </script>
 
 @endsection

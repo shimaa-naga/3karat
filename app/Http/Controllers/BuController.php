@@ -237,6 +237,7 @@ class BuController extends Controller
     {
        // dd($id);
        $buInfo = Bu::findOrFail($id);
+        // dd($buInfo->toArray());
         return view('website.bu.singleBu' , compact('buInfo'));
     }
 
