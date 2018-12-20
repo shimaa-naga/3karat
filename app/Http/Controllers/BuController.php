@@ -238,7 +238,9 @@ class BuController extends Controller
        // dd($id);
        $buInfo = Bu::findOrFail($id);
         // dd($buInfo->toArray());
-        return view('website.bu.singleBu' , compact('buInfo'));
+        $same_rent = Bu::where('bu_rent' , $buInfo->bu_rent)->orderBy(DB::raw('RAND()'))->take(3)->get();
+        $same_type = Bu::where('bu_rent' , $buInfo->bu_type)->orderBy(DB::raw('RAND()'))->take(3)->get();
+        return view('website.bu.singleBu' , compact('buInfo' , 'same_rent' , 'same_type'));
     }
 
 

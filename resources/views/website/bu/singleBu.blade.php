@@ -138,8 +138,21 @@
                         {!! nl2br($buInfo->bu_long_des) !!}
                     </p>
 
+                    <hr>
 
-                    <div id="map"  style="width:100%;height:400px;"></div>
+                    <div id="map"  style="width:100%;height:400px; padding: 5px 5px 5px 5px ;"></div>
+
+                    <hr>
+
+                    <div class="row" >
+                        <h4 style="padding: 0px 0px 0px 30px ;">
+                            Another Building May Interest You
+                        </h4>
+                        <hr>
+                        @include('website.bu.sharefile' ,['buAll' => $same_rent])
+                        @include('website.bu.sharefile' ,['buAll' => $same_type])
+                    </div>
+
                     <script>
                         function initMap() {
 
@@ -161,10 +174,16 @@
                                     AIzaSyB2bXKNDezDf6YNVc-SauobynNHPo4RJb8&callback=initMap">
                     </script>
 
+
                 </div>
+{{--            <div class="row">
+                    @include('website.bu.sharefile' ,['buAll' => $same_rent])
+                </div> --}}
+
             </div>
 
         </div>
+
     </div>
 
 

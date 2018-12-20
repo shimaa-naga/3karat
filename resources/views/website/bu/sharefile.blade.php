@@ -23,6 +23,14 @@
                       Square :  {{$bu->bu_square}}
                     </span>
 
+                    <span style="padding: 0px 25px 0px 15px; text-align: center; ">
+                      Place :  {{bu_place()[$bu->bu_place]}}
+                    </span>
+
+                     <span style="padding: 0px 25px 0px 15px; text-align: center; ">
+                      Building Type :  {{bu_type()[$bu->bu_type]}}
+                    </span>
+
                    <span style="padding: 0px 25px 1px 15px; ">
                      Process type :  {{bu_rent()[$bu->bu_rent]}}
 
