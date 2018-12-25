@@ -6,6 +6,36 @@
     function getSetting($settingname = 'sitename'){
 
         return \App\SiteSetting::where('namesetting' , $settingname)->get()[0]->value;
+
+    }
+
+    function checkIfImageExist($imageName){
+
+        if($imageName != ''){
+
+            $path = base_path().'/public/website/bu_images/'.$imageName ;
+
+            if(file_exists($path)){
+                return Request::root().'/website/bu_images/'.$imageName ;
+            }
+        }else{
+            return getSetting('no_image');
+        }
+
+    }
+
+    function uploadImage($request , $path = '/public/website/bu_images/'){
+        $dimension = getimagesize($request);
+        //dd($dimension);       // to get width & height of image
+        if($dimension[0] > 500 || $dimension[1] > 400){
+            //return Redirect::back()->withFlashMessage('Please select a photo by dimensions 500*500');
+            return false;
+        }
+        $fileName = $request->getClientOriginalName();
+        $request->move(
+            base_path().$path , $fileName
+        );
+        return $fileName ;
     }
 
     function bu_type(){

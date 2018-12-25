@@ -36,6 +36,8 @@ class BuRequest extends FormRequest
             'bu_latitude'   => 'required',
             'bu_long_des'   => 'required|min:5',
             'bu_status'     => 'required',
+            'bu_place'     => 'required',
+            'image'     => 'required|mimes:png,jpg,jpeg',
 
         ];
     }

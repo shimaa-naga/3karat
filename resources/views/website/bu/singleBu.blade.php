@@ -138,15 +138,15 @@
                         {!! nl2br($buInfo->bu_long_des) !!}
                     </p>
 
-                    <hr>
+                    <div id="line" style="padding: 0px 0px 30px 0px ;"><hr  /></div>
 
                     <div id="map"  style="width:100%;height:400px; padding: 5px 5px 5px 5px ;"></div>
 
-                    <hr>
+                    <hr >
 
                     <div class="row" >
                         <h4 style="padding: 0px 0px 0px 30px ;">
-                            Another Building May Interest You
+                            Another Buildings May Interest You
                         </h4>
                         <hr>
                         @include('website.bu.sharefile' ,['buAll' => $same_rent])

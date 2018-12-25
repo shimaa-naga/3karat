@@ -12,10 +12,65 @@
     <div class="banner text-center" >
         <div class="container">
             <div class="banner-info">
-                <h1>Lorem ipsum dolor sit amet</h1>
-                <p>Lorem ipsum dolor sit amet, facilisis egestas sodales non luctus,<br>
-                    sem quas potenti malesuada vel phasellus.</p>
-                <a class="banner_btn" href="about.html">Read More</a> </div>
+
+
+                <h1>Welcome in The first Buildings site in the Middle East {{-- {{getSetting()}}--}} </h1>
+
+
+                <p>
+
+                  {!! Form::open(['url' => 'search' , 'method' => 'get']) !!}
+                    <div class="row" style="padding:10px 50px 0px 0px ;">
+                        <div class="col-lg-3">
+                            {!! Form::text("bu_price_from" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price From']) !!}
+                        </div>
+                        <div class="col-lg-3">
+                            {!! Form::text("bu_price_to" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price To']) !!}
+                        </div>
+                        <div class="col-lg-3">
+                            {!! Form::select("rooms" ,roomnumber() , null ,['class' => 'form-control' , 'placeholder' => 'No.Rooms']) !!}                        </div>
+                        <div class="col-lg-3">
+                            {!! Form::select("bu_type" ,bu_type() , null ,['class' => 'form-control' , 'placeholder' => 'Type of Building']) !!}
+                        </div>
+
+
+
+
+                    </div>
+                <br>
+                    <div class="row" style="padding:10px 50px 0px 0px ;">
+
+                        <div class="col-lg-3">
+                            {!! Form::select("bu_rent" ,bu_rent() , null ,['class' => 'form-control' , 'placeholder' => 'Type of Process']) !!}
+                        </div>
+                        <div class="col-lg-3">
+                            {!! Form::text("bu_square" , null ,['class' => 'form-control' , 'placeholder' => 'Square']) !!}
+                        </div>
+                        <div class="col-lg-3">
+                            {!! Form::select("bu_place" ,bu_place(), null ,['class' => 'form-control js-example-templating' , 'placeholder' => 'Building Place']) !!}
+                        </div>
+                        <div class="col-lg-3" >
+                           {!! Form::submit("Search" , ['class' => 'btn btn-secondary' , 'style' => 'width:80% ']) !!}
+                            {{-- <button type="submit" class="submit" >
+
+                                {{ __('Search') }}
+                            </button>--}}
+
+                        </div>
+
+                    </div>
+
+
+                            {!! Form::close() !!}
+
+            </div>
+
+
+
+                </p>
+
+
+                <a class="banner_btn" href="{{url('/showAllBuildings')}}"> More</a> </div>
         </div>
     </div>
     <div class="main">

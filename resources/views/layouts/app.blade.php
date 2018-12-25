@@ -68,6 +68,51 @@
                     <ul class="nav" id="nav">
                         <li class="current"><a href="{{url('/home')}}">Home</a></li>
                         <li class=""><a href="{{url('/showAllBuildings')}}">All Buildings</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown"  href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                               {{__('rent')}} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    <ul  {{-- class="dropdown-menu" role="menu" --}}>
+
+                                        @foreach(bu_type() as $keyType => $type)
+                                            <li style="width:100% ;"><a href="{{url('/search?bu_rent=0&bu_type='.$keyType)}}">{{$type}}</a> </li>
+                                        @endforeach
+
+                                    </ul>
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown"  href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{__('ownership')}} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    <ul  {{-- class="dropdown-menu" role="menu" --}}>
+
+                                        @foreach(bu_type() as $keyType => $type)
+                                            <li style="width:100% ;"><a  href="{{url('/search?bu_rent=1&bu_type='.$keyType)}}">{{$type}}</a> </li>
+                                        @endforeach
+
+                                    </ul>
+                                </a>
+                            </div>
+                        </li>
+
+
+
+
+
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="contact.html">Contact Us</a></li>

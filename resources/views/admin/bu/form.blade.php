@@ -59,12 +59,13 @@
             {{--    {!! Form::select("rent" , bu_rent() , null ,['class' => 'form-control']) !!}    --}}
            {{-- <input id="name" type="name" class="form-control{{ $errors->has('bu_rent') ? ' is-invalid' : '' }}" name="bu_rent" value="{{ old('bu_rent') }}" required> --}}
 
-            <select  id="name" name="bu_rent"  class="form-control{{ $errors->has('bu_rent') ? ' is-invalid' : '' }}" name="bu_rent" value="{{ old('bu_rent') }}" required>
-                <option value="1">Ownership</option>
-                <option value="0">Rent</option>
+            <select  id="name"   class="form-control{{ $errors->has('bu_rent') ? ' is-invalid' : '' }}" name="bu_rent"  required>
+                <option {{old('bu_rent','bu_rent')=="1"? 'selected':''}}  value="1">Ownership</option>
+                <option {{old('bu_rent','bu_rent')=="0"? 'selected':''}} value="0">Rent</option>
             </select>
 
-            @if ($errors->has('bu_rent'))
+
+        @if ($errors->has('bu_rent'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('bu_rent') }}</strong>
                 </span>
@@ -95,11 +96,10 @@
 
             {{--    {!! Form::select("bu_type" , bu_type() , null ,['class' => 'form-control']) !!}    --}}
 
-            <select  id="name" class="form-control{{ $errors->has('bu_type') ? ' is-invalid' : '' }}" name="bu_type" value="{{ old('bu_type') }}" required>
-                <option value="0">Flat</option>
-                <option value="1">Villa</option>
-                <option value="2">Chalet</option>
-
+            <select  id="name" class="form-control{{ $errors->has('bu_type') ? ' is-invalid' : '' }}" name="bu_type"   required >
+                <option {{old('bu_type','bu_type')=="0"? 'selected':''}}  value="0">Flat</option>
+                <option {{old('bu_type','bu_type')=="1"? 'selected':''}} value="1">Villa</option>
+                <option {{old('bu_type','bu_type')=="2"? 'selected':''}} value="2">Chalet</option>
             </select>
 
             @if ($errors->has('bu_type'))
@@ -117,11 +117,11 @@
 
             {{--    {!! Form::select("bu_status" , bu_status() , null ,['class' => 'form-control']) !!}    --}}
 
-            <select  id="name" class="form-control{{ $errors->has('bu_status') ? ' is-invalid' : '' }}" name="bu_status" value="{{ old('bu_status') }}" required>
-                <option value="1">Enabled</option>
-                <option value="0">Disabled</option>
-            </select>
 
+            <select  id="name" class="form-control{{ $errors->has('bu_status') ? ' is-invalid' : '' }}" name="bu_status"  required>
+                <option {{old('bu_status','bu_status')=="1"? 'selected':''}}  value="1">Enabled</option>
+                <option {{old('bu_status','bu_status')=="0"? 'selected':''}} value="0">Disabled</option>
+            </select>
             @if ($errors->has('bu_status'))
                 <span class="invalid-feedback" role="alert">
                      <strong>{{ $errors->first('bu_status') }}</strong>
@@ -137,17 +137,46 @@
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Place :') }}</label>
 
         <div class="col-md-6">
-            {{--             <select  id="name" name="bu_place"  class="form-control{{ $errors->has('bu_place') ? ' is-invalid' : '' }}" name="bu_place" value="{{ old('bu_place') }}" required>
- --}}
 
+                <select  id="name" name="bu_place"  class="form-control{{ $errors->has('bu_place') ? ' is-invalid' : '' }}"  value="{{ old('bu_place') }}" required>
+                    @foreach (bu_place() as $key => $value)
+                        <option {{old('bu_place','bu_place')==$key? 'selected':''}}  value="{{$key}}">{{$value}}</option>
+
+                    @endforeach
+                    </select>
+                {{--
                 {!! Form::select("bu_place" ,bu_place() ,null,['class' => "form-control select2 {{ $errors->has('bu_place') ? ' is-invalid' : '' }}",'value' => "{{ old('bu_place') }}" ]) !!}
-
+                --}}
 
 
             @if ($errors->has('bu_place'))
                 <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('bu_place') }}</strong>
                     </span>
+            @endif
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Image for Building :') }}</label>
+
+        <div class="col-md-6">
+
+            @if(isset($bu))
+                @if($bu->image != '')
+                    <img src="{{ Request::root().'/website/bu_images/'.$bu->image}}" value="{{ old('image') }}" width="100" style="padding: 0px 0px 5px 0px ;">
+
+                @endif
+            @endif
+
+
+            {!! Form::file("image" ,null,['class' => "form-control{{ $errors->has('image') ? ' is-invalid' : '' }}",'value' => "{{ old('image') }}" ]) !!}
+
+            @if ($errors->has('image'))
+                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('image') }}</strong>
+                        </span>
             @endif
         </div>
     </div>
@@ -174,7 +203,7 @@
         <div class="col-md-6">
            {{-- <input id="name" type="text" class="form-control{{ $errors->has('bu_small_des') ? ' is-invalid' : '' }}" name="bu_small_des" value="{{ old('bu_small_des') }}" required> --}}
 
-            <textarea id="name" type="text" class="form-control{{ $errors->has('bu_small_des') ? ' is-invalid' : '' }}" name="bu_small_des" value="{{ old('bu_small_des') }}" required >
+            <textarea id="name" type="text" class="form-control{{ $errors->has('bu_small_des') ? ' is-invalid' : '' }}" name="bu_small_des"  required >
 
             </textarea>
             @if ($errors->has('bu_small_des'))
@@ -232,7 +261,7 @@
 
         <div class="col-md-6">
              <textarea id="name" type="text" class="form-control{{ $errors->has('bu_long_des') ? ' is-invalid' : '' }}" name="bu_long_des" value="{{ old('bu_long_des') }}" required >
-
+{{ old('bu_long_des') }}
             </textarea>
             @if ($errors->has('bu_long_des'))
                 <span class="invalid-feedback" role="alert">

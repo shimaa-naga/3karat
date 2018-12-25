@@ -60,7 +60,7 @@
 
 
 
-                        <form  method="post"  action="{{url('/adminpanel/bu/'.$bu->id)}}">
+                        <form  method="post"  action="{{url('/adminpanel/bu/'.$bu->id)}}" enctype="multipart/form-data">
                             @csrf
                             {{--  {{method_field('PATCH')}}--}}
 
@@ -92,8 +92,8 @@
 
                                 @if ($errors->has('rooms'))
                                     <span class="invalid-feedback" role="alert">
-                         <strong>{{ $errors->first('rooms') }}</strong>
-                    </span>
+                                        <strong>{{ $errors->first('rooms') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -121,19 +121,16 @@
                                 {{--    {!! Form::select("rent" , bu_rent() , null ,['class' => 'form-control']) !!}    --}}
                                 {{-- <input id="name" type="name" class="form-control{{ $errors->has('bu_rent') ? ' is-invalid' : '' }}" name="bu_rent" value="{{ old('bu_rent') }}" required> --}}
 
-                                <select  id="name"   class="form-control{{ $errors->has('bu_rent') ? ' is-invalid' : '' }}" name="bu_rent" value="{{ $bu->bu_rent }}" required>
 
-
-                                    {{--  <option value="{{ $bu->bu_rent}}" selected="selected" >{{ $bu->bu_rent}}</option> --}}
-
-                                    <option value="1">Ownership</option>
-                                    <option value="0">Rent</option>
+                                <select  id="name"   class="form-control{{ $errors->has('bu_rent') ? ' is-invalid' : '' }}" name="bu_rent"  required>
+                                    <option {{old('bu_rent',$bu->bu_rent)=="1"? 'selected':''}}  value="1">Ownership</option>
+                                    <option {{old('bu_rent',$bu->bu_rent)=="0"? 'selected':''}} value="0">Rent</option>
                                 </select>
 
                                 @if ($errors->has('bu_rent'))
                                     <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('bu_rent') }}</strong>
-                </span>
+                                        <strong>{{ $errors->first('bu_rent') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -147,8 +144,8 @@
 
                                 @if ($errors->has('bu_square'))
                                     <span class="invalid-feedback" role="alert">
-                         <strong>{{ $errors->first('bu_square') }}</strong>
-                    </span>
+                                        <strong>{{ $errors->first('bu_square') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -161,21 +158,16 @@
 
                                 {{--    {!! Form::select("bu_type" , bu_type() , null ,['class' => 'form-control']) !!}    --}}
 
-                                <select  id="name" class="form-control{{ $errors->has('bu_type') ? ' is-invalid' : '' }}" name="bu_type" value="{{ $bu->bu_type }}"  required >
-
-                                        {{-- <option value="{{ $bu->bu_type}}" selected="selected" >{{ $bu->bu_type}}</option> --}}
-
-
-                                    <option value="0" name="bu_type" >Flat</option>
-                                    <option value="1" name="bu_type" >Villa</option>
-                                    <option value="2" name="bu_type" >Chalet</option>
-
+                                <select  id="name" class="form-control{{ $errors->has('bu_type') ? ' is-invalid' : '' }}" name="bu_type"   required >
+                                    <option {{old('bu_type',$bu->bu_type)=="0"? 'selected':''}}  value="0">Flat</option>
+                                    <option {{old('bu_type',$bu->bu_type)=="1"? 'selected':''}} value="1">Villa</option>
+                                    <option {{old('bu_type',$bu->bu_type)=="2"? 'selected':''}} value="2">Chalet</option>
                                 </select>
 
                                 @if ($errors->has('bu_type'))
                                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('bu_type') }}</strong>
-                    </span>
+                                        <strong>{{ $errors->first('bu_type') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -189,19 +181,16 @@
 
                                 {{--    {!! Form::select("bu_status" , bu_status() , null ,['class' => 'form-control']) !!}    --}}
 
-                                <select  id="name" class="form-control{{ $errors->has('bu_status') ? ' is-invalid' : '' }}" name="bu_status" value="{{ $bu->bu_status }}" required>
 
-
-                                    {{-- <option value="{{ $bu->bu_status}}" selected="selected" >{{ $bu->bu_status}}</option> --}}
-
-                                    <option value="1" name="bu_status">Enabled</option>
-                                    <option value="0" name="bu_status">Disabled</option>
+                                <select  id="name" class="form-control{{ $errors->has('bu_status') ? ' is-invalid' : '' }}" name="bu_status"  required>
+                                    <option {{old('bu_status',$bu->bu_status)=="1"? 'selected':''}}  value="1">Enabled</option>
+                                    <option {{old('bu_status',$bu->bu_status)=="0"? 'selected':''}} value="0">Disabled</option>
                                 </select>
 
                                 @if ($errors->has('bu_status'))
                                     <span class="invalid-feedback" role="alert">
-                     <strong>{{ $errors->first('bu_status') }}</strong>
-                </span>
+                                        <strong>{{ $errors->first('bu_status') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -212,22 +201,47 @@
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Place :') }}</label>
 
                                 <div class="col-md-6">
-                                    {{--             <select  id="name" name="bu_place"  class="form-control{{ $errors->has('bu_place') ? ' is-invalid' : '' }}" name="bu_place" value="{{ old('bu_place') }}" required>
-                         --}}
 
-                                    {!! Form::select("bu_place" ,bu_place() ,null,['class' => "form-control {{ $errors->has('bu_place') ? ' is-invalid' : '' }}",'value' => "{{ old('bu_place') }}" ]) !!}
+                                    {{-- {!! Form::select("bu_place" ,bu_place() ,null,['class' => "form-control {{ $errors->has('bu_place') ? ' is-invalid' : '' }}",'value' => "{{ old('bu_place') }}" ]) !!}
+                                     --}}
+                                    <select  id="name" class="form-control{{ $errors->has('bu_place') ? ' is-invalid' : '' }}" name="bu_place"   required >
+                                        @foreach (bu_place() as $key => $value)
+                                        <option {{old('bu_place',$bu->bu_place)==$key? 'selected':''}}  value="{{$key}}">{{$value}}</option>
 
+                                        @endforeach
+                                    </select>
 
 
                                     @if ($errors->has('bu_place'))
                                         <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('bu_place') }}</strong>
-                    </span>
+                                            <strong>{{ $errors->first('bu_place') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
 
 
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Image for Building :') }}</label>
+
+                                <div class="col-md-6">
+
+                                    @if(isset($bu))
+                                     @if($bu->image != '')
+                                        <img src="{{ Request::root().'/website/bu_images/'.$bu->image}}" value="{{ old('image') }}" width="100" style="padding: 0px 0px 5px 0px ;">
+
+                                     @endif
+                                    @endif
+
+                                    {!! Form::file("image" ,null,['class' => 'form-control' ]) !!}
+
+                                    @if ($errors->has('image'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('image') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
 
 
                             <div class="form-group row">
@@ -238,8 +252,8 @@
 
                                 @if ($errors->has('bu_meta'))
                                     <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('bu_meta') }}</strong>
-                </span>
+                                        <strong>{{ $errors->first('bu_meta') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -315,13 +329,6 @@
                             </div>
                         </div>
 
-
-
-
-
-
-
-
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="submit">
@@ -331,13 +338,6 @@
                                 </div>
                             </div>
                         </form>
-
-
-
-
-
-
-
 
 
 

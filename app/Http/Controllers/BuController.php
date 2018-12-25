@@ -31,6 +31,30 @@ class BuController extends Controller
     public function store(BuRequest $buRequest , Bu $bu)
     {
 
+        if($buRequest->file('image')){
+            $fileName = uploadImage($buRequest->file('image'));
+
+            if(!$fileName) {
+
+                return Redirect::back()->withFlashMessage('Please select a photo by dimensions 500*500');
+            }
+            }else{
+            $image = '' ;
+        }
+        /*
+            if($buRequest->file('image')){
+            $fileName = $buRequest->file('image')->getClientOriginalName();
+            $buRequest->file('image')->move(
+                base_path().'/public/website/bu_images/' , $fileName
+            );
+            $image = $fileName;
+        }else{
+            $image = '';
+        }
+        */
+
+
+
         $user = Auth::user();
 
         $data =[
@@ -47,6 +71,8 @@ class BuController extends Controller
             'bu_long_des'   => $buRequest->bu_long_des,
             'bu_status'     => $buRequest->bu_status,
             'user_id'       => $user->id,
+            'bu_place'       => $buRequest->bu_place,
+            'image'       => $buRequest->image,
         ];
 
        // dd($data);
@@ -79,6 +105,7 @@ class BuController extends Controller
 
     public function update($id , Request $request)
     {
+        /*
         $buUpdate = Bu::find($id);
 
         $rules =[
@@ -118,11 +145,33 @@ class BuController extends Controller
 
 
         $buUpdate->save();
+        */
 
        // return redirect('/adminpanel/bu');
+        $buUpdate = Bu::find($id);
+        $buUpdate->fill(array_except($request->all() , ['image']))->save();
 
-        //$buUpdate->fill($request->all())->save();
-        //dd($buUpdate);
+        if($request->file('image')){
+            $dimension = getimagesize($request->file('image'));
+            //dd($dimension);       // to get width & height of image
+            if($dimension[0] > 500 || $dimension[1] > 500){
+
+                return Redirect::back()->withFlashMessage('Please select a photo by dimensions 500*500');
+
+            }
+
+            $fileName = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(
+                base_path().'/public/website/bu_images/' , $fileName
+            );
+            /*
+             $fileName = uploadImage($request->file('image'));
+            if(!$fileName){
+                return Redirect::back()->withFlashMessage('Please select a photo by dimensions 500*500');
+            }
+            */
+            $buUpdate->fill(['image' => $fileName])->save();
+        }
         return Redirect::back()->withFlashMessage('Updated Building Successfully');
     }
 

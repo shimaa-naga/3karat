@@ -11,7 +11,7 @@
 
     <div class="col-12 col-md-6 col-lg-4"  style="margin-bottom: 1em;" >
         <div class="card">
-            <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+            <img class="card-img-top" src="{{checkIfImageExist($bu->image)}}" alt="Card image cap" class="image-responsive">
             <div class="card-body">
                 <h4 class="card-title"><a href="product.html" title="View Product">{{$bu->bu_name}}</a></h4>
                 <p class="card-text">{{str_limit($bu->bu_small_des , 70)}}</p>
