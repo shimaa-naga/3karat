@@ -73,9 +73,9 @@
                                             <tbody>
 
 
-                                            @foreach($user as $userinfo)
+                                            @foreach($user as $key => $userinfo)
                                                 <tr role="row" class="odd">
-                                                    <td>{{$userinfo->id}}</td>
+                                                    <td>{{$key + 1}}</td>
                                                     <td class="sorting_1">{{$userinfo->name}}</td>
                                                     <td> {{$userinfo->email}} </td>
                                                     <td>{{$userinfo->created_at}}</td>

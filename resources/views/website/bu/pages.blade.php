@@ -1,5 +1,21 @@
+
+
 <div class="col-12 col-sm-3">
 
+
+    @if(Auth::user())
+
+        <div class="card bg-light mb-3">
+            <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Personal Information</div>
+            <ul class="list-group category_block">
+                <li class="list-group-item"><a href="{{url('/user/editProfile')}}"> Edit Profile </a></li>
+                <li class="list-group-item"><a href="{{url('/user/buildingShow')}}"> Active Buildings </a></li>
+                <li class="list-group-item"><a href="{{url('/user/buildingShowWaiting')}}"> Buildings awaiting Activation </a></li>
+                <li class="list-group-item"><a href="{{url('/user/create/building')}}"> Add Building </a></li>
+            </ul>
+        </div>
+
+    @endif
 
 
     <div class="card bg-light mb-3">

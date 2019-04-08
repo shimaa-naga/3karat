@@ -9,6 +9,7 @@ Route::group(['middleware' => ['web','admin']], function(){
     //Datatable Ajax
     Route::get('/adminpanel/users/data', ['as'=>'adminpanel.users.data' ,'users'=>'UsersController@anyData']);
     Route::get('/adminpanel/bu/data', ['as'=>'adminpanel.bu.data' ,'users'=>'BuController@anyData']);
+    Route::get('/adminpanel/contact/data', ['as'=>'adminpanel.contact.data' ,'users'=>'ContactController@anyData']);
 
 
 
@@ -38,7 +39,16 @@ Route::group(['middleware' => ['web','admin']], function(){
     Route::post('/adminpanel/bu/create','BuController@store');
     Route::get('/adminpanel/bu/{id}/edit','BuController@edit');
     Route::post('/adminpanel/bu/{id}','BuController@update');
+    Route::get('/adminpanel/bu/new','BuController@new_building');
     Route::get('/adminpanel/bu/{id}/delete','BuController@destroy');
+
+
+    // Contacts
+    Route::get('/adminpanel/contact','ContactController@index');
+    Route::get('/adminpanel/contact/newmessages','ContactController@newMessage');
+    Route::get('/adminpanel/contact/{id}/edit','ContactController@edit'); // to open message with id
+    Route::post('/adminpanel/contact/update/{id}','ContactController@update');
+    Route::get('/adminpanel/contact/{id}/delete','ContactController@delete');
 
 });
 
@@ -71,5 +81,26 @@ Route::group(['middleware' => 'web'], function(){
     Route::get('/search','BuController@search');
     Route::get('/singleBuilding/{id}','BuController@showSingleBuilding');
 
+    Route::get('/ajax/bu/information','BuController@getAjaxInfo');
+
+    Route::get('/contact','HomeController@contact');
+    Route::post('/contact','ContactController@store');
+
+    // user add building routes
+    Route::get('/user/create/building', 'BuController@userAddBuilding');
+    Route::post('/user/create/building', 'BuController@userStoreBuilding');
+
+    Route::get('/user/buildingShow', 'BuController@showUserBuildings')->middleware('auth');
+    Route::get('/user/buildingShowWaiting', 'BuController@showUserBuildingsWaiting')->middleware('auth');
+
+
+    // user edit profile
+    Route::get('/user/editProfile', 'usersController@userEditProfile')->middleware('auth');
+    Route::post('/user/editProfile', 'usersController@userUpdateProfile')->middleware('auth');
+
+
+
     Route::get('/home', 'HomeController@index')->name('home');
+
+
 });

@@ -78,77 +78,33 @@
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">4</span>
+                        <span class="label label-success">{{countUnreadMessages()}}</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">You have 4 messages</li>
+                        <li class="header">You have {{countUnreadMessages()}} New Messages</li>
                         <li>
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
-                                <li><!-- start message -->
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="{{asset('admin/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
-                                        </div>
-                                        <h4>
-                                            Support Team
-                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <!-- end message -->
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="{{asset('admin/dist/img/user3-128x128.jpg')}}" class="img-circle" alt="User Image">
-                                        </div>
-                                        <h4>
-                                            AdminLTE Design Team
-                                            <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="{{asset('admin/dist/img/user4-128x128.jpg')}}" class="img-circle" alt="User Image">
-                                        </div>
-                                        <h4>
-                                            Developers
-                                            <small><i class="fa fa-clock-o"></i> Today</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="{{asset('admin/dist/img/user3-128x128.jpg')}}" class="img-circle" alt="User Image">
-                                        </div>
-                                        <h4>
-                                            Sales Department
-                                            <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <img src="{{asset('admin/dist/img/user4-128x128.jpg')}}" class="img-circle" alt="User Image">
-                                        </div>
-                                        <h4>
-                                            Reviewers
-                                            <small><i class="fa fa-clock-o"></i> 2 days</small>
-                                        </h4>
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li>
+
+                                @foreach(unreadMessages() as $keyMessage => $valueMessage)
+                                    <li><!-- start message -->
+                                        <a href="{{url('/adminpanel/contact/'.$valueMessage->id.'/edit')}}">
+                                            <div class="pull-left">
+                                                <img src="{{asset('admin/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                                            </div>
+                                            <h4>
+                                                {{$valueMessage->contact_name}}
+                                                <small><i class="fa fa-clock-o"></i> {{$valueMessage->created_at}}</small>
+                                            </h4>
+                                            <p style="padding: 0px 0px 0px 10px ;"> {{str_limit($valueMessage->contact_message , 37)}}</p>
+                                        </a>
+                                    </li>
+                                    <!-- end message -->
+                                @endforeach
+
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">See All Messages</a></li>
+                        <li class="footer"><a href="{{url('/adminpanel/contact/newmessages')}}">See All New Messages</a></li>
                     </ul>
                 </li>
                 <!-- Notifications: style can be found in dropdown.less -->

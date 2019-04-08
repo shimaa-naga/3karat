@@ -45,25 +45,24 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    
+
     {!! Html::style('cus/css/select2.min.css') !!}
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 </head>
+
+
 <body >
-
-
-
 
 
 
 <div id="app" >
 
 
-        <div class="header" style="padding-bottom: 0px ;" >
-            <div class="container"> <a class="navbar-brand" href="{{ url('/') }}"><i class="fa fa-paper-plane"></i> 3karat</a>
+        <div class="header" style="padding-bottom: 25px ;" >
+            <div class="container" style="padding-top: 0px; "> <a class="navbar-brand" href="{{ url('/') }}"><i class="fa fa-paper-plane"></i> 3karat</a>
                 <div class="menu"> <a class="toggleMenu" href="#"><img src="{{asset('website/images/nav_icon.png')}}" alt="" /> </a>
                     <ul class="nav" id="nav">
                         <li class="current"><a href="{{url('/home')}}">Home</a></li>
@@ -115,7 +114,7 @@
 
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="services.html">Services</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="{{url('/contact')}}">Contact Us</a></li>
 
 
 
@@ -158,9 +157,13 @@
 
 
 
-    <main class="py-4">
+    <main class="py-4 " style="padding: 0px 0px 0px 0px;" >
+
         @yield('content')
     </main>
+
+
+
 </div>
 
 
@@ -168,11 +171,11 @@
 <div class="footer">
     <div class="footer_bottom">
         <div class="follow-us">
-            <a class="fa fa-facebook social-icon" href="{{--  {{getSetting('facebook')}} --}}"></a>
-            <a class="fa fa-twitter social-icon" href="#"></a>
-            <a class="fa fa-linkedin social-icon" href="#"></a>
-            <a class="fa fa-google-plus social-icon" href="#"></a>
-            <a class="fa fa-youtube social-icon" href="#"></a>
+            <a class="fa fa-facebook social-icon" href=" {{getSetting('facebook')}}"></a>
+            <a class="fa fa-twitter social-icon" href="{{getSetting('twitter')}}"></a>
+            <a class="fa fa-linkedin social-icon" href="{{getSetting('facebook')}}"></a>
+            <a class="fa fa-google-plus social-icon" href="{{getSetting('facebook')}}"></a>
+            <a class="fa fa-youtube social-icon" href="{{getSetting('youtube')}}"></a>
         </div>
         <div class="copy">
             <p>Copyright &copy; 2018 Company Name. Design by <a href="http://www.templategarden.com" rel="nofollow">Shimaa Naga</a></p>
@@ -189,7 +192,7 @@
 {!! Html::script('cus/js/select2.min.js') !!}
 
 
-
+@yield('footer')
 <script type="text/javascript" >
 
     {{--    function formatState (state) {
@@ -206,6 +209,7 @@
     $(".select2").select2({
         templateSelection: formatState
     }); --}}
+
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
         $('.select2').select2();

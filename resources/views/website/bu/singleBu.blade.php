@@ -102,6 +102,19 @@
                         {{$buInfo->bu_name}}
 
                     </h1>
+
+                    <div style="padding: 10px 0px 10px 350px ;">
+
+
+                         <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                        <script type="text/javascript" url="{{url('/singleBuilding/'.$buInfo->id)}}" title="{{$buInfo->bu_name}}|{{getSetting('website name')}}" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c58adf35e9e410f"></script>
+
+
+                        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                        <div class="addthis_inline_share_toolbox_lqu3"></div>
+
+                    </div>
+
                     <br />
 
                     <div id="line"><hr  /></div>
@@ -109,36 +122,51 @@
 
 
                     <div class="btn-group" role="group"  style="padding: 7px 0px 0px 0px ;">
-
-                        <a class="btn btn-info " class="btn btn-info " {{-- class="btn btn-light" --}} href="{{url('/search?bu_square='.$buInfo->bu_square)}}"> Square: {{$buInfo->bu_square}} </a>
-
-
-                        <a class="btn btn-info " href="{{url('/search?bu_price='.$buInfo->bu_price)}}">Price: {{$buInfo->bu_price}} </a>
+                        <div>
+                            <a class="btn btn-info " class="btn btn-info " {{-- class="btn btn-light" --}} href="{{url('/search?bu_square='.$buInfo->bu_square)}}"> Square: {{$buInfo->bu_square}} </a>
 
 
-                        <a class="btn btn-info " href="{{url('/search?bu_place='.$buInfo->bu_place)}}"> Region: {{bu_place()[$buInfo->bu_place]}} </a>
+                            <a class="btn btn-info " href="{{url('/search?bu_price='.$buInfo->bu_price)}}">Price: {{$buInfo->bu_price}} </a>
 
 
-                        <a class="btn btn-info " href="{{url('/search?rooms='.$buInfo->rooms)}}"> No.of Rooms: {{$buInfo->rooms}} </a>
+                            <a class="btn btn-info " href="{{url('/search?bu_place='.$buInfo->bu_place)}}"> Region: {{bu_place()[$buInfo->bu_place]}} </a>
 
 
-                        <a class="btn btn-info " href="{{url('/search?bu_rent='.$buInfo->bu_rent)}}"> Process Type: {{bu_rent()[$buInfo->bu_rent]}} </a>
+                            <a class="btn btn-info " href="{{url('/search?rooms='.$buInfo->rooms)}}"> No.of Rooms: {{$buInfo->rooms}} </a>
 
 
-                        <a class="btn btn-info " href="{{url('/search?bu_type='.$buInfo->bu_type)}}"> Type: {{bu_type()[$buInfo->bu_type]}} </a>
+                            <a class="btn btn-info " href="{{url('/search?bu_rent='.$buInfo->bu_rent)}}"> Process Type: {{bu_rent()[$buInfo->bu_rent]}} </a>
+
+
+                            <a class="btn btn-info " href="{{url('/search?bu_type='.$buInfo->bu_type)}}"> Type: {{bu_type()[$buInfo->bu_type]}} </a>
+
+                        </div>
 
 
                     </div>
 
                     <div id="line"><hr /></div>
 
+                    <br>
+
+                    <img src="{{checkIfImageExist($buInfo->image)}}" class="img-responsive" >
+
+
+                    <div id="line"><hr /></div>
+
                       <br>
 
-                    <p>
-                        {!! nl2br($buInfo->bu_long_des) !!}
-                    </p>
+
+                    <div  class="row" style="padding: 5px 5px 0px 10px ;">
+                       <p>
+                           {!! nl2br($buInfo->bu_long_des) !!}
+                       </p>
+                   </div>
 
                     <div id="line" style="padding: 0px 0px 30px 0px ;"><hr  /></div>
+
+
+
 
                     <div id="map"  style="width:100%;height:400px; padding: 5px 5px 5px 5px ;"></div>
 
@@ -152,6 +180,7 @@
                         @include('website.bu.sharefile' ,['buAll' => $same_rent])
                         @include('website.bu.sharefile' ,['buAll' => $same_type])
                     </div>
+
 
                     <script>
                         function initMap() {

@@ -45,6 +45,25 @@
     </a>
     <ul class="treeview-menu">
         <li class="active"><a href="{{url('/adminpanel/bu/create')}}"><i class="fa fa-circle-o"></i> Add Building </a></li>
+        <li><a href="{{url('/adminpanel/bu/new')}}"><i class="fa fa-circle-o"></i> New Buildings </a></li>
         <li><a href="{{url('/adminpanel/bu')}}"><i class="fa fa-circle-o"></i> All Buildings </a></li>
+    </ul>
+</li>
+
+
+
+{{-- Contact --}}
+
+
+<li class=" treeview">
+    <a href="#">
+        <i class="fa fa-envelope-o pull-left"></i> <span>Website Messages</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="active"><a href="{{url('/adminpanel/contact/newmessages')}}"><i class="fa fa-envelope"></i> New Messages</a></li>
+        <li><a href="{{url('/adminpanel/contact')}}"><i class="fa fa-envelope-square"></i> All Messages</a></li>
     </ul>
 </li>

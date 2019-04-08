@@ -53,7 +53,7 @@
                        {{--   {{test()}} --}}
 
 
-                        <form action="{{url('/adminpanel/sitesetting')}}" method="post">
+                        <form action="{{url('/adminpanel/sitesetting')}}" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
 
                         @foreach($sitesetting as $setting)
@@ -69,6 +69,12 @@
 
                                     @if($setting->type == 0)
                                     {!! Form::text($setting->namesetting , $setting->value ,['class' => 'form-control']) !!}
+                                    @elseif($setting->type == 3)
+                                        @if($setting->value != '')
+                                            <img src="{{checkIfImageExist($setting->value , '/public/website/slider/' , '/website/slider/')}}" width="150" />
+                                            <br>
+                                        @endif
+                                    {!! Form::file($setting->namesetting ,null,['class' => 'form-control' ]) !!}
                                     @else
                                     {!! Form::textarea($setting->namesetting , $setting->value ,['class' => 'form-control']) !!}
                                     @endif

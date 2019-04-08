@@ -3,15 +3,51 @@
 
 @section('title')
 
-   welcome to visitors
-    @endsection
+    welcome to visitors
+@endsection
+
+
+@section('header')
+    {{--
+        <style>
+            .banner{
+                background: url("{{checkIfImageExist(getSetting('main_slider') , '/public/website/slider/' , '/website/slider/')}}") no-repeat center;
+                min-height: 500px;
+                width: 100%;
+                -webkit-background-size: 100%;
+                -moz-background-size: 100%;
+                -o-background-size: 100%;
+                background-size: 100%;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                padding-bottom: 100px;
+            }
+        </style>
+        --}}
+
+
+
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="{{asset('main/css/reset.css')}}"> <!-- CSS reset -->
+    <link rel="stylesheet" href="{{asset('main/css/style.css')}}">  <!-- Resource style -->
+    <script src="{{asset('main/js/modernizr.js')}}"></script> <!-- Modernizr -->
+
+
+
+
+
+@endsection
 
 @section('content')
 
 
-    <div class="banner text-center" >
-        <div class="container">
-            <div class="banner-info">
+
+    <div class="banner text-center" style="padding: 0px 0px 0px 0px; ">
+        <div class="container" >
+            <div class="banner-info" >
 
 
                 <h1>Welcome in The first Buildings site in the Middle East {{-- {{getSetting()}}--}} </h1>
@@ -19,201 +55,121 @@
 
                 <p>
 
-                  {!! Form::open(['url' => 'search' , 'method' => 'get']) !!}
-                    <div class="row" style="padding:10px 50px 0px 0px ;">
-                        <div class="col-lg-3">
-                            {!! Form::text("bu_price_from" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price From']) !!}
-                        </div>
-                        <div class="col-lg-3">
-                            {!! Form::text("bu_price_to" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price To']) !!}
-                        </div>
-                        <div class="col-lg-3">
-                            {!! Form::select("rooms" ,roomnumber() , null ,['class' => 'form-control' , 'placeholder' => 'No.Rooms']) !!}                        </div>
-                        <div class="col-lg-3">
-                            {!! Form::select("bu_type" ,bu_type() , null ,['class' => 'form-control' , 'placeholder' => 'Type of Building']) !!}
-                        </div>
-
-
-
-
+                {!! Form::open(['url' => 'search' , 'method' => 'get']) !!}
+                <div class="row" style="padding:10px 50px 0px 0px ;">
+                    <div class="col-lg-3">
+                        {!! Form::text("bu_price_from" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price From']) !!}
                     </div>
+                    <div class="col-lg-3">
+                        {!! Form::text("bu_price_to" , null ,['class' => 'form-control' , 'placeholder' => 'Building Price To']) !!}
+                    </div>
+                    <div class="col-lg-3">
+                        {!! Form::select("rooms" ,roomnumber() , null ,['class' => 'form-control' , 'placeholder' => 'No.Rooms']) !!}                        </div>
+                    <div class="col-lg-3">
+                        {!! Form::select("bu_type" ,bu_type() , null ,['class' => 'form-control' , 'placeholder' => 'Type of Building']) !!}
+                    </div>
+
+
+
+
+                </div>
                 <br>
-                    <div class="row" style="padding:10px 50px 0px 0px ;">
+                <div class="row" style="padding:10px 50px 0px 0px ;">
 
-                        <div class="col-lg-3">
-                            {!! Form::select("bu_rent" ,bu_rent() , null ,['class' => 'form-control' , 'placeholder' => 'Type of Process']) !!}
-                        </div>
-                        <div class="col-lg-3">
-                            {!! Form::text("bu_square" , null ,['class' => 'form-control' , 'placeholder' => 'Square']) !!}
-                        </div>
-                        <div class="col-lg-3">
-                            {!! Form::select("bu_place" ,bu_place(), null ,['class' => 'form-control js-example-templating' , 'placeholder' => 'Building Place']) !!}
-                        </div>
-                        <div class="col-lg-3" >
-                           {!! Form::submit("Search" , ['class' => 'btn btn-secondary' , 'style' => 'width:80% ']) !!}
-                            {{-- <button type="submit" class="submit" >
+                    <div class="col-lg-3">
+                        {!! Form::select("bu_rent" ,bu_rent() , null ,['class' => 'form-control' , 'placeholder' => 'Type of Process']) !!}
+                    </div>
+                    <div class="col-lg-3">
+                        {!! Form::text("bu_square" , null ,['class' => 'form-control' , 'placeholder' => 'Square']) !!}
+                    </div>
+                    <div class="col-lg-3">
+                        {!! Form::select("bu_place" ,bu_place(), null ,['class' => 'form-control js-example-templating' , 'placeholder' => 'Building Place']) !!}
+                    </div>
+                    <div class="col-lg-3" >
+                        {!! Form::submit("Search" , ['class' => 'btn btn-secondary' , 'style' => 'width:80% ']) !!}
+                        {{-- <button type="submit" class="submit" >
 
-                                {{ __('Search') }}
-                            </button>--}}
-
-                        </div>
+                            {{ __('Search') }}
+                        </button>--}}
 
                     </div>
 
+                </div>
 
-                            {!! Form::close() !!}
+
+                {!! Form::close() !!}
 
             </div>
 
 
 
-                </p>
+            </p>
 
 
-                <a class="banner_btn" href="{{url('/showAllBuildings')}}"> More</a> </div>
+            <a class="banner_btn" href="{{url('/showAllBuildings')}}"> More</a>
+            <a class="banner_btn" href="{{url('/user/create/building')}}"> Add Building</a>
         </div>
     </div>
-    <div class="main">
-        <div class="content_white">
-            <h2>Featured Services</h2>
-            <p>Quisque cursus metus vitae pharetra auctor, sem massa mattis semat interdum magna.</p>
-        </div>
-        <div class="featured_content" id="feature">
-            <div class="container">
-                <div class="row text-center">
-                    <div class="col-mg-3 col-xs-3 feature_grid1"> <i class="fa fa-cog fa-3x"></i>
-                        <h3 class="m_1"><a href="services.html">Legimus graecis</a></h3>
-                        <p class="m_2">Lorem ipsum dolor sit amet, facilisis egestas sodales non luctus, sem quas potenti malesuada vel phasellus.</p>
-                        <a href="services.html" class="feature_btn">More</a> </div>
-                    <div class="col-mg-3 col-xs-3 feature_grid1"> <i class="fa fa-comments-o fa-3x"></i>
-                        <h3 class="m_1"><a href="services.html">Mazim minimum</a></h3>
-                        <p class="m_2">Lorem ipsum dolor sit amet, facilisis egestas sodales non luctus, sem quas potenti malesuada vel phasellus.</p>
-                        <a href="services.html" class="feature_btn">More</a> </div>
-                    <div class="col-md-3 col-xs-3 feature_grid1"> <i class="fa fa-globe fa-3x"></i>
-                        <h3 class="m_1"><a href="services.html">Modus altera</a></h3>
-                        <p class="m_2">Lorem ipsum dolor sit amet, facilisis egestas sodales non luctus, sem quas potenti malesuada vel phasellus.</p>
-                        <a href="services.html" class="feature_btn">More</a> </div>
-                    <div class="col-md-3 col-xs-3 feature_grid2"> <i class="fa fa-history fa-3x"></i>
-                        <h3 class="m_1"><a href="services.html">Melius eligendi</a></h3>
-                        <p class="m_2">Lorem ipsum dolor sit amet, facilisis egestas sodales non luctus, sem quas potenti malesuada vel phasellus.</p>
-                        <a href="services.html" class="feature_btn">More</a> </div>
-                </div>
-            </div>
-        </div>
-        <div class="about-info">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="block-heading-two">
-                            <h2><span>About Our Company</span></h2>
-                        </div>
-                        <p>Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero.</p>
-                        <br>
-                        <p>Sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-                        <a class="banner_btn" href="about.html">Read More</a> </div>
-                    <div class="col-md-4">
-                        <div class="block-heading-two">
-                            <h3><span>Our Advantages</span></h3>
-                        </div>
-                        <div class="panel-group" id="accordion-alt3">
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseOne-alt3"> <i class="fa fa-angle-right"></i> Quisque cursus metus vitae pharetra auctor</a> </h4>
-                                </div>
-                                <div id="collapseOne-alt3" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <p>Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseTwo-alt3"> <i class="fa fa-angle-right"></i> Duis autem vel eum iriure dolor in hendrerit</a> </h4>
-                                </div>
-                                <div id="collapseTwo-alt3" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <p>Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseThree-alt3"> <i class="fa fa-angle-right"></i> Quisque cursus metus vitae pharetra auctor </a> </h4>
-                                </div>
-                                <div id="collapseThree-alt3" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <p>Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion-alt3" href="#collapseFour-alt3"> <i class="fa fa-angle-right"></i> Duis autem vel eum iriure dolor in hendrerit</a> </a> </h4>
-                                </div>
-                                <div id="collapseFour-alt3" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <p>Consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="highlight-info">
-            <div class="overlay spacer">
-                <div class="container">
-                    <div class="row text-center">
-                        <div class="col-sm-3 col-xs-6"> <i class="fa fa-smile-o fa-5x"></i>
-                            <h4>120+ Happy Clients</h4>
-                        </div>
-                        <div class="col-sm-3 col-xs-6"> <i class="fa fa-check-square-o fa-5x"></i>
-                            <h4>600+ Projects Completed</h4>
-                        </div>
-                        <div class="col-sm-3 col-xs-6"> <i class="fa fa-trophy fa-5x"></i>
-                            <h4>25 Awards Won</h4>
-                        </div>
-                        <div class="col-sm-3 col-xs-6"> <i class="fa fa-map-marker fa-5x"></i>
-                            <h4>3 Offices</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="testimonial-area">
-            <div class="testimonial-solid">
-                <div class="container">
-                    <h2>Client Testimonials</h2>
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"> <a href="#"></a> </li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1" class=""> <a href="#"></a> </li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2" class=""> <a href="#"></a> </li>
-                            <li data-target="#carousel-example-generic" data-slide-to="3" class=""> <a href="#"></a> </li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <p>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam quis nostrud exerci tation."</p>
-                                <p><strong>- John Doe -</strong></p>
-                            </div>
-                            <div class="item">
-                                <p>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam quis nostrud exerci tation."</p>
-                                <p><strong>- Jane Doe -</strong></p>
-                            </div>
-                            <div class="item">
-                                <p>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam quis nostrud exerci tation."</p>
-                                <p><strong>- John Smith -</strong></p>
-                            </div>
-                            <div class="item">
-                                <p>"Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam quis nostrud exerci tation."</p>
-                                <p><strong>- Linda Smith -</strong></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-</div>
 
-    @endsection
+    <div class="main">
+
+
+        <ul class="cd-items cd-container">
+
+            @foreach(\App\Bu::where('bu_status' , 1)->get() as $bu)
+                <li class="cd-item {{-- box effect8 --}}"  >
+                    <img src="{{checkIfImageExist($bu->image , '/public/website/thumb/' , '/website/thumb/')}}" alt="{{$bu->name}}" title="{{$bu->name}}" {{-- alt="Item Preview" --}}>
+                    <a href="#0" data-id="{{$bu->id}}" class="cd-trigger" title="{{$bu->name}}">Quick View</a>
+                </li> <!-- cd-item -->
+            @endforeach
+        </ul> <!-- cd-items -->
+
+        <div class="cd-quick-view">
+            <div class="cd-slider-wrapper">
+                <ul class="cd-slider">
+                    <li><img src="{{asset('main/img/item-3.jpg')}}"  class="imagebox" alt="image"></li>
+                </ul> <!-- cd-slider -->
+
+
+            </div> <!-- cd-slider-wrapper -->
+
+            <div class="cd-item-info">
+                <h2 class="titlebox"></h2>
+                <p class="disbox"></p>
+
+                <ul class="cd-item-action">
+                    <li><a class="add-to-cart pricebox" href="">Add to cart</a></li>
+                    <li><a  class="morebox" href="#0">Read more</a></li>
+                </ul> <!-- cd-item-action -->
+            </div> <!-- cd-item-info -->
+            <a href="#0" class="cd-close">Close</a>
+        </div> <!-- cd-quick-view -->
+
+    </div>
+
+
+
+@endsection
+
+@section('footer')
+    {{-- <script src="{{Request::root()}}/main/js/jquery-2.1.1.js"></script> --}}
+    <script src="{{asset('main/js/jquery-2.1.1.js')}}"></script>
+    <script src="{{asset('main/js/velocity.min.js')}}"></script>
+    <script src="{{asset('main/js/main.js')}}"></script> <!-- Resource jQuery -->
+
+
+    <script>
+        function urlHome(){
+
+            return '{{Request::root()}}';
+        }
+
+        function noImageUrl(){
+
+            return '{{getSetting('no_image')}}';
+        }
+
+
+    </script>
+    <script src="{{asset('main/js/main.js')}}"></script> <!-- Resource jQuery -->
+@endsection

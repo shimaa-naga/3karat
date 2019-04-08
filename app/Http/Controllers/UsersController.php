@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Bu;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AddUserRequestAdmin;
@@ -74,7 +75,7 @@ class UsersController extends Controller
 
 
 
-    // functions edit & update using for fetch user show it data and update it and store data in data base
+    // functions edit & update using for fetch user show data and update it and store data in database
 
     public function edit($id){
 
@@ -122,19 +123,43 @@ class UsersController extends Controller
         //return Redirect::back();
     }
 
-
-public function destroy($id){
-
-    if($id != 1){
-
-        $user =User::find($id)->delete();
-        Bu::where('user_id' , $id)->delete();   // delete Buldings that belongs this user that want to delete
-        return redirect('/adminpanel/users')->withFlashMessage('deleted user successfully');
+    
+    public function destroy($id){
+    
+        if($id != 1){
+    
+            $user =User::find($id)->delete();
+            Bu::where('user_id' , $id)->delete();   // delete Buldings that belongs this user that want to delete
+            return redirect('/adminpanel/users')->withFlashMessage('deleted user successfully');
+        }
+    
+        return redirect('/adminpanel/users')->withFlashMessage('Can’t delete user No.1');
+    
+    }
+    
+    
+    // user edit its profile
+    public function userEditProfile()
+    {
+        $user = Auth::user();
+        return view('website.profile.edit', compact('user'));
     }
 
-    return redirect('/adminpanel/users')->withFlashMessage('Can’t delete user No.1');
+    public function userUpdateProfile(Request $request)
+    {
+        $rules = [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users'
+        ];
+        $user = Auth::user();
+        //$user = User::find($id);
+        $validator = validator()->make($request->all() , $rules);
+        $user->update($request->all());
+        return Redirect::back()->withFlashMessage('Updated Information Successfully');
 
-}
+    }
+
+
 
     public function anyData(User $user)
     {
@@ -158,8 +183,9 @@ public function destroy($id){
             ->editColumn('control', function ($model) {
                 $all = '<a href="' . url('/adminpanel/bu/' . $model->id . '/edit') . '" class="btn btn-info btn-circle"><i class="fa fa-edit"></i></a> ';
 
-                $all .= '<a href="' . url('/adminpanel/bu/' . $model->id . '/delete') . '" class="btn btn-danger btn-circle"><i class="fa fa-trash-o"></i></a>';
-
+                if($model->id !=1){
+                    $all .= '<a href="' . url('/adminpanel/bu/' . $model->id . '/delete') . '" class="btn btn-danger btn-circle"><i class="fa fa-trash-o"></i></a>';
+                }
                 return $all;
             })
             ->make(true);

@@ -1,4 +1,10 @@
 
+<style>
+    .text-md-left,.col-md-4,.col-form-label {
+        text-align: left!important;
+        padding: 0px 0px 0px 50px;
+    }
+</style>
 
 {{--
 <form method="POST" action="{{ route('register') }}">
@@ -7,7 +13,7 @@
 
     <div class="form-group row">
 
-       <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Building Name :') }}</label>
+       <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Building Name :') }}</label>
 
 
         <div class="col-md-6">
@@ -23,10 +29,18 @@
 
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('No.Rooms :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('No.Rooms :') }}</label>
 
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control{{ $errors->has('rooms') ? ' is-invalid' : '' }}" name="rooms" value="{{ old('rooms') }}" required>
+            {{--<input id="name" type="text" class="form-control{{ $errors->has('rooms') ? ' is-invalid' : '' }}" name="rooms" value="{{ old('rooms') }}" required>--}}
+            {{--{!! Form::select("rooms" ,roomnumber() , null ,['class' => 'form-control']) !!}--}}
+
+            <select  id="name" class="form-control{{ $errors->has('rooms') ? ' is-invalid' : '' }}" name="rooms"   required >
+                @foreach (roomnumber() as $key => $value)
+                    <option {{old('rooms','rooms')==$key? 'selected':''}}  value="{{$key}}">{{$value}}</option>
+
+                @endforeach
+            </select>
 
             @if ($errors->has('rooms'))
                 <span class="invalid-feedback" role="alert">
@@ -38,7 +52,7 @@
 
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Price :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Price :') }}</label>
 
         <div class="col-md-6">
             <input id="name" type="text" class="form-control{{ $errors->has('bu_price') ? ' is-invalid' : '' }}" name="bu_price" value="{{ old('bu_price') }}" required>
@@ -53,7 +67,7 @@
 
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Type of Rent :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Type of Rent :') }}</label>
 
         <div class="col-md-6">
             {{--    {!! Form::select("rent" , bu_rent() , null ,['class' => 'form-control']) !!}    --}}
@@ -75,7 +89,7 @@
 
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Building Area :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Building Area :') }}</label>
 
         <div class="col-md-6">
             <input id="name" type="text" class="form-control{{ $errors->has('bu_square') ? ' is-invalid' : '' }}" name="bu_square" value="{{ old('bu_square') }}" required>
@@ -90,7 +104,7 @@
 
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Type Of Building :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Type Of Building :') }}</label>
 
         <div class="col-md-6">
 
@@ -110,31 +124,35 @@
          </div>
     </div>
 
-    <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Status Of Building :') }}</label>
-
-        <div class="col-md-6">
-
-            {{--    {!! Form::select("bu_status" , bu_status() , null ,['class' => 'form-control']) !!}    --}}
 
 
-            <select  id="name" class="form-control{{ $errors->has('bu_status') ? ' is-invalid' : '' }}" name="bu_status"  required>
-                <option {{old('bu_status','bu_status')=="1"? 'selected':''}}  value="1">Enabled</option>
-                <option {{old('bu_status','bu_status')=="0"? 'selected':''}} value="0">Disabled</option>
-            </select>
-            @if ($errors->has('bu_status'))
-                <span class="invalid-feedback" role="alert">
+   @if(!isset($user))
+
+       <div class="form-group row">
+           <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Status Of Building :') }}</label>
+
+           <div class="col-md-6">
+
+               {{--    {!! Form::select("bu_status" , bu_status() , null ,['class' => 'form-control']) !!}    --}}
+
+
+               <select  id="name" class="form-control{{ $errors->has('bu_status') ? ' is-invalid' : '' }}" name="bu_status"  required>
+                   <option {{old('bu_status','bu_status')=="1"? 'selected':''}}  value="1">Enabled</option>
+                   <option {{old('bu_status','bu_status')=="0"? 'selected':''}} value="0">Disabled</option>
+               </select>
+               @if ($errors->has('bu_status'))
+                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $errors->first('bu_status') }}</strong>
                 </span>
-            @endif
-        </div>
-    </div>
+               @endif
+           </div>
+       </div>
 
-
+   @endif
 
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Place :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Place :') }}</label>
 
         <div class="col-md-6">
 
@@ -159,7 +177,7 @@
 
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Image for Building :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Image for Building :') }}</label>
 
         <div class="col-md-6">
 
@@ -183,7 +201,7 @@
 
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Tag Words :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Tag Words :') }}</label>
 
         <div class="col-md-6">
             <input id="name" type="text" class="form-control{{ $errors->has('bu_meta') ? ' is-invalid' : '' }}" name="bu_meta" value="{{ old('bu_meta') }}" required>
@@ -197,39 +215,45 @@
     </div>
 
 
-    <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Description of Structure for search Engines :') }}</label>
 
-        <div class="col-md-6">
-           {{-- <input id="name" type="text" class="form-control{{ $errors->has('bu_small_des') ? ' is-invalid' : '' }}" name="bu_small_des" value="{{ old('bu_small_des') }}" required> --}}
+    @if(!isset($user))
+        <div class="form-group row">
+            <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Description of Structure for search Engines :') }}</label>
 
-            <textarea id="name" type="text" class="form-control{{ $errors->has('bu_small_des') ? ' is-invalid' : '' }}" name="bu_small_des"  required >
+            <div class="col-md-6">
+               {{-- <input id="name" type="text" class="form-control{{ $errors->has('bu_small_des') ? ' is-invalid' : '' }}" name="bu_small_des" value="{{ old('bu_small_des') }}" required> --}}
 
-            </textarea>
-            @if ($errors->has('bu_small_des'))
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('bu_small_des') }}</strong>
-                </span>
-            @endif
+                <textarea id="name" type="text" class="form-control{{ $errors->has('bu_small_des') ? ' is-invalid' : '' }}" name="bu_small_des"  required >
 
-            <br>
-            {{-- <div class="alert alert-warning"> --}}
+                </textarea>
+                @if ($errors->has('bu_small_des'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('bu_small_des') }}</strong>
+                    </span>
+                @endif
 
-            <div class="alert alert-warning alert-dismissible fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Warning!</strong> You can't enter more than 160 characters according to Google's criteria.
+                <br>
+                {{-- <div class="alert alert-warning"> --}}
+
+                <div class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Warning!</strong> You can't enter more than 160 characters according to Google's criteria.
+                </div>
+                {{--
+                <div class="alert alert-warning">
+                    You can not enter more than 160 characters according to Google's criteria
+                </div>
+
+                --}}
             </div>
-            {{--
-            <div class="alert alert-warning">
-                You can not enter more than 160 characters according to Google's criteria
-            </div>
-
-            --}}
         </div>
-    </div>
+
+    @endif
+
+
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Longitude of Building :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Longitude of Building :') }}</label>
 
         <div class="col-md-6">
             <input id="name" type="text" class="form-control{{ $errors->has('bu_longitude') ? ' is-invalid' : '' }}" name="bu_longitude" value="{{ old('bu_longitude') }}" required>
@@ -243,7 +267,7 @@
     </div>
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Latitude of Building :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Latitude of Building :') }}</label>
 
         <div class="col-md-6">
             <input id="name" type="text" class="form-control{{ $errors->has('bu_latitude') ? ' is-invalid' : '' }}" name="bu_latitude" value="{{ old('bu_latitude') }}" required>
@@ -257,7 +281,7 @@
     </div>
 
     <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Long description of the building :') }}</label>
+        <label for="name" class="col-md-4 col-form-label text-md-left" style=" padding: 0px 0px 0px 50px; ">{{ __('Long description of the building :') }}</label>
 
         <div class="col-md-6">
              <textarea id="name" type="text" class="form-control{{ $errors->has('bu_long_des') ? ' is-invalid' : '' }}" name="bu_long_des" value="{{ old('bu_long_des') }}" required >
@@ -274,7 +298,7 @@
 
 
     <div class="form-group row mb-0">
-        <div class="col-md-6 offset-md-4">
+        <div class="col-md-6 offset-md-4" >
             <button type="submit" class="submit">
 
                 {{ __('Add Building') }}

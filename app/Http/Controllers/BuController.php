@@ -35,10 +35,12 @@ class BuController extends Controller
             $fileName = uploadImage($buRequest->file('image'));
 
             if(!$fileName) {
-
-                return Redirect::back()->withFlashMessage('Please select a photo by dimensions 500*500');
+                return Redirect::back()->withFlashMessage('Please select a photo by dimensions 400*500');
             }
-            }else{
+
+            $image = $fileName;
+
+        }else{
             $image = '' ;
         }
         /*
@@ -52,8 +54,6 @@ class BuController extends Controller
             $image = '';
         }
         */
-
-
 
         $user = Auth::user();
 
@@ -71,8 +71,8 @@ class BuController extends Controller
             'bu_long_des'   => $buRequest->bu_long_des,
             'bu_status'     => $buRequest->bu_status,
             'user_id'       => $user->id,
-            'bu_place'       => $buRequest->bu_place,
-            'image'       => $buRequest->image,
+            'bu_place'      => $buRequest->bu_place,
+            'image'         => $image,
         ];
 
        // dd($data);
@@ -80,9 +80,9 @@ class BuController extends Controller
         return Redirect('/adminpanel/bu')->withFlashMessage('Building Added Successfully') ;
     }
 
+
     public function edit($id)
     {
-
         $bu = Bu::find($id);
         return view('admin.bu.edit',compact('bu'));
     }
@@ -152,27 +152,33 @@ class BuController extends Controller
         $buUpdate->fill(array_except($request->all() , ['image']))->save();
 
         if($request->file('image')){
-            $dimension = getimagesize($request->file('image'));
-            //dd($dimension);       // to get width & height of image
-            if($dimension[0] > 500 || $dimension[1] > 500){
+//            $dimension = getimagesize($request->file('image'));
+//            //dd($dimension);       // to get width & height of image
+//            if($dimension[0] > 500 || $dimension[1] > 500){
+//
+//                return Redirect::back()->withFlashMessage('Please select a photo by dimensions 500*500');
+//
+//            }
+//
+//            $fileName = $request->file('image')->getClientOriginalName();
+//            $request->file('image')->move(
+//                base_path().'/public/website/bu_images/' , $fileName
+//            );
 
-                return Redirect::back()->withFlashMessage('Please select a photo by dimensions 500*500');
-
-            }
-
-            $fileName = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(
-                base_path().'/public/website/bu_images/' , $fileName
-            );
-            /*
-             $fileName = uploadImage($request->file('image'));
+             $fileName = uploadImage($request->file('image') , '/public/website/bu_images/' , '500' , '362' , $buUpdate->image);
             if(!$fileName){
-                return Redirect::back()->withFlashMessage('Please select a photo by dimensions 500*500');
+                return Redirect::back()->withFlashMessage('Please select a photo by dimensions 500*362');
             }
-            */
+
             $buUpdate->fill(['image' => $fileName])->save();
         }
         return Redirect::back()->withFlashMessage('Updated Building Successfully');
+    }
+
+    public function new_building()
+    {
+        $bus = Bu::where('bu_status' , 0)->get();
+        return view('admin.bu.newBuildings',compact('bus'));
     }
 
 
@@ -286,6 +292,9 @@ class BuController extends Controller
     {
        // dd($id);
        $buInfo = Bu::findOrFail($id);
+        if($buInfo->bu_status == 0){
+            return view('website.bu.noPermission' , compact('buInfo'));
+        }
         // dd($buInfo->toArray());
         $same_rent = Bu::where('bu_rent' , $buInfo->bu_rent)->orderBy(DB::raw('RAND()'))->take(3)->get();
         $same_type = Bu::where('bu_rent' , $buInfo->bu_type)->orderBy(DB::raw('RAND()'))->take(3)->get();
@@ -293,8 +302,82 @@ class BuController extends Controller
     }
 
 
+    public function getAjaxInfo(Request $request )
+    {
+        return  Bu::find($request->id)->toJson();
+    }
+
+
+    // methods associated with user add building
+
+    public function userAddBuilding()
+    {
+        return view('website.userBuildings.add');
+    }
     
 
+    public function userStoreBuilding(BuRequest $buRequest)
+    {
+
+        if($buRequest->file('image')){
+            $fileName = uploadImage($buRequest->file('image'));
+
+            if(!$fileName) {
+                return Redirect::back()->withFlashMessage('Please select a photo by dimensions 400*500');
+            }
+
+            $image = $fileName;
+
+        }else{
+            $image = '' ;
+        }
+
+
+        $user = Auth::user() ? Auth::user()->id : 0;
+
+        $data =[
+            'bu_name'       => $buRequest->bu_name,
+            'bu_price'      => $buRequest->bu_price,
+            'rooms'         => $buRequest->rooms,
+            'bu_rent'       => $buRequest->bu_rent,
+            'bu_square'     => $buRequest->bu_square,
+            'bu_type'       => $buRequest->bu_type,
+            'bu_small_des'  => strip_tags(str_limit($buRequest->bu_long_des , 160)),  // bu_small_des get value automatically from bu_long_des
+            'bu_meta'       => $buRequest->bu_meta,
+            'bu_longitude'  => $buRequest->bu_longitude,
+            'bu_latitude'   => $buRequest->bu_latitude,
+            'bu_long_des'   => $buRequest->bu_long_des,
+            'user_id'       => $user,
+            'bu_place'      => $buRequest->bu_place,
+            'image'         => $image,
+        ];
+
+        // dd($data);
+        $bu =Bu::create($data);
+        return view('website.userBuildings.done') ;
+    }
+
+
+    public function showUserBuildings()
+    {
+        $user = Auth::user();
+        $bu = Bu::where('user_id' , $user->id)
+                ->where('bu_status', 1)
+                ->paginate(9);
+        return view('website.userBuildings.showUserBuildings', compact('bu', 'user'));
+    }
+
+    public function showUserBuildingsWaiting()
+    {
+        $user = Auth::user();
+        $bu = Bu::where('user_id' , $user->id)
+            ->where('bu_status', 0)
+            ->paginate(9);
+        return view('website.userBuildings.showUserBuildings', compact('bu', 'user'));
+
+    }
+    
+    
     public function anyData(Bu $bu)
     {
 
@@ -309,7 +392,7 @@ class BuController extends Controller
 
 
             ->editColumn('bu_status', function ($model) {
-                return $model->bu_status == 0 ? '<span class="badge badge-info">' . 'ΫνΡ γέΪα' . '</span>' : '<span class="badge badge-warning">' . 'γέΪα' . '</span>';
+                return $model->bu_status == 0 ? '<span class="badge badge-info">' . 'οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½' . '</span>' : '<span class="badge badge-warning">' . 'οΏ½οΏ½οΏ½οΏ½' . '</span>';
             })
 
 

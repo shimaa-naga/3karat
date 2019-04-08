@@ -30,14 +30,14 @@ class BuRequest extends FormRequest
             'bu_rent'       => 'required',
             'bu_square'     => 'required|min:2|max:10',
             'bu_type'       => 'required',
-            'bu_small_des'  => 'required|min:5|max:160',
+            //'bu_small_des'  => 'required|min:5|max:160',  // get value automatically from bu_long_des
             'bu_meta'       => 'required|min:5|max:200',
             'bu_longitude'  => 'required',
             'bu_latitude'   => 'required',
             'bu_long_des'   => 'required|min:5',
-            'bu_status'     => 'required',
+            //'bu_status'     => 'required',  // its default = 0
             'bu_place'     => 'required',
-            'image'     => 'required|mimes:png,jpg,jpeg',
+            'image'     => 'mimes:png,jpg,jpeg',
 
         ];
     }

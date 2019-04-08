@@ -88,9 +88,16 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('No.Rooms :') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('rooms') ? ' is-invalid' : '' }}" name="rooms" value="{{ $bu->rooms }}" required>
+                                {{--<input id="name" type="text" class="form-control{{ $errors->has('rooms') ? ' is-invalid' : '' }}" name="rooms" value="{{ $bu->rooms }}" required>--}}
 
-                                @if ($errors->has('rooms'))
+                                <select  id="name" class="form-control{{ $errors->has('rooms') ? ' is-invalid' : '' }}" name="rooms"   required >
+                                    @foreach (roomnumber() as $key => $value)
+                                        <option {{old('rooms',$bu->rooms)==$key? 'selected':''}}  value="{{$key}}">{{$value}}</option>
+
+                                    @endforeach
+                                </select>
+
+                            @if ($errors->has('rooms'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('rooms') }}</strong>
                                     </span>
@@ -316,6 +323,22 @@
                             </div>
                         </div>
 
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Long description of the building :') }}</label>
+
+                                <div class="col-md-6">
+                                    <textarea id="name" type="text" class="form-control{{ $errors->has('bu_long_des') ? ' is-invalid' : '' }}" name="bu_long_des"  required >{{ $bu->bu_long_des }}</textarea>
+                                    @if ($errors->has('bu_long_des'))
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('bu_long_des') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+
+
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Long description of the building :') }}</label>
 
@@ -328,6 +351,9 @@
                                 @endif
                             </div>
                         </div>
+
+
+
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">

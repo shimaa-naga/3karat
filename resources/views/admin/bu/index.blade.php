@@ -61,34 +61,48 @@
                         <div class="box-body">
                             <div id="example1" class="dataTables_wrapper form-inline dt-bootstrap"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="example1_length"><label>Show <select name="example1_length" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-6"><div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                                             <thead>
-                                            <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 95px;">#</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 121px;">Name Of Building</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 106px;">Price</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 106px;">Type</th>
+                                            <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 70px;">#</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">Name Of Building</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Price</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 20px;">Type</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 40px;">Status</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 40px;">Is Admin</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 90px;">Created Time</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 90px;">Updated Time</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Status</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Is Admin</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Controll</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 110px;">Controll</th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
 
                                             
-                                            @foreach($bus as $buinfo)
+                                            @foreach($bus as $key => $buinfo)
                                                 <tr role="row" class="odd">
-                                                    <td>{{$buinfo->id}}</td>
+                                                    <td>{{$key + 1}}</td>
                                                     <td class="sorting_1">{{$buinfo->bu_name}}</td>
                                                     <td> {{$buinfo->bu_price}} </td>
-                                                    <td> {{$buinfo->bu_type}} </td>
+                                                    {{--<td> --}}{{-- {{$buinfo->bu_type}}--}}{{-- </td> --}}
+                                                    @if($buinfo->bu_type == 0)
+                                                        <td> Flat </td>
+                                                    @elseif($buinfo->bu_type == 1)
+                                                        <td> Villa </td>
+                                                    @else
+                                                        <td> Chalet </td>
+                                                    @endif
+                                                    <td> {{$buinfo->bu_status == 1 ? 'Enabled' : 'Disabled'}}</td>
+                                                    <td> {{$buinfo->user_id == 1 ? 'manager' : 'user'}}</td>
                                                     <td> {{$buinfo->created_at}}</td>
                                                     <td> {{$buinfo->updated_at}}</td>
-                                                    <td> {{$buinfo->bu_status}}</td>
-                                                    <td> {{$buinfo->user_id == 1 ? 'manager' : 'user'}}</td>
                                                     <td>
-                                                        <a href="{{url('/adminpanel/bu/'.$buinfo->id.'/edit')}}"> Edit </a>
-                                                        <a href="{{url('/adminpanel/bu/'.$buinfo->id.'/delete')}}"> Delete</a>
+                                                        {{--<a href="{{url('/adminpanel/bu/'.$buinfo->id.'/edit')}}"> Edit </a>--}}
+                                                        {{--<a href="{{url('/adminpanel/bu/'.$buinfo->id.'/delete')}}"> Delete</a>--}}
+                                                        <a href="{{url('/adminpanel/bu/'.$buinfo->id.'/edit')}}" class="btn btn-primary btn-info" {{-- style="background-color: #337ab7;" --}} >
+                                                            Edit
+                                                        </a>
+
+                                                        <a href="{{url('/adminpanel/bu/'.$buinfo->id.'/delete')}}" class="btn btn-danger btn-info" >
+                                                            Delete
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -99,15 +113,15 @@
                                             </tbody>
                                             <tfoot>
 
-                                            <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 95px;">#</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 121px;">User Name</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 106px;">Price</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 106px;">Type</th>
+                                            <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 70px;">#</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 100px;">User Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 100px;">Price</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 20px;">Type</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 40px;">Status</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 40px;">Is Admin</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 80px;">Created Time</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Updated Time</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Status</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Is Admin</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 54px;">Controll</th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 110px;">Controll</th>
                                             </tr>
 
                                             </tfoot>

@@ -9,14 +9,14 @@
 
     }
 
-    function checkIfImageExist($imageName){
+    function checkIfImageExist($imageName , $pathImage = '/public/website/bu_images/' , $url = '/website/bu_images/'){
 
         if($imageName != ''){
 
-            $path = base_path().'/public/website/bu_images/'.$imageName ;
+            $path = base_path().$pathImage.$imageName ;
 
             if(file_exists($path)){
-                return Request::root().'/website/bu_images/'.$imageName ;
+                return Request::root().$url.$imageName ;
             }
         }else{
             return getSetting('no_image');
@@ -24,10 +24,48 @@
 
     }
 
-    function uploadImage($request , $path = '/public/website/bu_images/'){
+
+    function uploadImage($request , $path = '/public/website/bu_images/' , $width = '500' , $height = '362' , $deleteFileWithName = ''){
+
+        if($deleteFileWithName != ''){
+            deleteImage(base_path().$path.'/'.$deleteFileWithName);
+        }
+
         $dimension = getimagesize($request);
         //dd($dimension);       // to get width & height of image
-        if($dimension[0] > 500 || $dimension[1] > 400){
+
+        $fileName = $request->getClientOriginalName();
+        $request->move(
+            base_path().$path , $fileName
+        );
+
+        if($width == '500' && $height == '362'){
+
+            $thumbPath = base_path().'/public/website/thumb/';
+            $thumbPathNew = $thumbPath.$fileName;
+            \Intervention\Image\Facades\Image::make(base_path().$path.'/'.$fileName)->resize('500','362')->save($thumbPathNew  , 100);
+
+            if($deleteFileWithName != ''){
+                deleteImage($thumbPath.$deleteFileWithName);
+            }
+        }
+        
+        return $fileName ;
+    }
+
+    function deleteImage($deleteFileWithName){
+        if(file_exists($deleteFileWithName)){
+            \Illuminate\Support\Facades\File::delete($deleteFileWithName);
+        }
+
+    }
+
+
+/*
+    function uploadImage($request , $path = '/public/website/bu_images/' , $width = '500' , $height = '500'){
+        $dimension = getimagesize($request);
+        //dd($dimension);       // to get width & height of image
+        if($dimension[0] > $width || $dimension[1] > $height){
             //return Redirect::back()->withFlashMessage('Please select a photo by dimensions 500*500');
             return false;
         }
@@ -37,6 +75,8 @@
         );
         return $fileName ;
     }
+*/
+
 
     function bu_type(){
 
@@ -99,6 +139,25 @@
             'bu_price_from' => 'Building Price From' ,
             'bu_price_to' => 'Building Price To'
         ];
+    }
+
+
+
+    function contact(){
+        return [
+            '1' => 'Like',
+            '2' => 'Problem',
+            '3' => 'Suggestion',
+            '4' => 'Enquiry'
+        ];
+    }
+
+    function unreadMessages(){
+        return \App\Contact::where('view' , 0)->get();
+    }
+
+    function countUnreadMessages(){
+        return \App\Contact::where('view' , 0)->count();
     }
 
 
